@@ -2,9 +2,6 @@
 
 namespace Lenddo\tests;
 
-require_once __DIR__ . '/mocks/GuzzleClientMock.php';
-require_once __DIR__ . '/mocks/ServiceClientMock.php';
-
 class ServiceClientTest extends \PHPUnit_Framework_TestCase
 {
     const API_USER = 'foo';
