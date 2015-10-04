@@ -1,5 +1,7 @@
 # Lenddo PHP SDK
 
+[![Build Status](https://travis-ci.org/Lenddo/php-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/php-lenddo)
+
 This SDK will currently only allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular
 GuzzleHttp/Guzzle package. Calling the clientScore() and clientVerification() methods will return a 
 `Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
