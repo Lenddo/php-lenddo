@@ -1,0 +1,23 @@
+{
+    "name": "lenddo/sdk",
+    "homepage": "http://www.lenddo.com",
+    "description": "SDK for communicating with Lenddo Services.",
+    "license": "MIT",
+    "keywords": ["lenddo"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Lenddo",
+            "homepage": "http://www.lenddo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "guzzlehttp/guzzle": "6.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lenddo\\": "src/"
+        }
+    }
+}
