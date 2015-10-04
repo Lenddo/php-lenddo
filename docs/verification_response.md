@@ -1,15 +1,15 @@
 ```json
 {
-    // unix timestamp when this verification was last updated
+    # unix timestamp when this verification was last updated
     "updated": 0,
-    // unix timestamp when this verification was created
+    # unix timestamp when this verification was created
     "updated": 0,
-    // Array of strings indicating reasons for the verifications
+    # Array of strings indicating reasons for the verifications
     "flags": [
         "EM03",
         "NM02"
     ],
-    // The verification results for each category. 1 == Verified
+    # The verification results for each category. 1 == Verified
     "verifications" : {
         "name": 1,
         "university": 0,
@@ -18,9 +18,9 @@
         "birthday": 1,
         "top_employer": 0
     },
-    // The client ID you provided to retrieve this result.
+    # The client ID you provided to retrieve this result.
     "client_id": "string",
-    // Probes are the values provided by you initially to us to verify against.
+    # Probes are the values provided by you initially to us to verify against.
     "probes": {
         "name": [
             "first",
