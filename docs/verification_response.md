@@ -37,9 +37,9 @@
             "verified_facebook_id"
         ],
         "birthday": [
-            1900, // year
-            12, // month
-            31 // day
+            1900, # year
+            12, # month
+            31 # day
         ],
         "top_employer": "top_employer_name"
     }

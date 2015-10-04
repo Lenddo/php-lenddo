@@ -2,10 +2,12 @@
 
 namespace Lenddo;
 
-use GuzzleHttp;
-
 class ServiceClient
 {
+    protected $_classes = array(
+        'http_client' => '\GuzzleHttp\Client'
+    );
+
     protected $_api_app_id = '';
     protected $_api_secret = '';
     protected $_api_endpoint = 'https://scoreservice.lenddo.com/';
@@ -37,6 +39,9 @@ class ServiceClient
                     break;
                 case 'guzzle_request_options':
                     $this->_guzzle_request_options = $option_value;
+                    break;
+                case 'classes':
+                    $this->_classes = array_merge( $this->_classes, $option_value );
                     break;
             }
         }
@@ -86,14 +91,17 @@ class ServiceClient
         //region Initiate the variables for this request
         $method = strtoupper( $method );
         $path = '/' . $path;
-        $date = date('D M j G:i:s T Y');
+        $date = $this->_get_date_timestamp();
+
         $headers = array(
             "Authorization" => $this->_signRequest($method, null, $date, $path),
             "Content-Type" => "application/json",
             "Date" => $date,
             "Connection" => "close"
         );
-        $client = new GuzzleHttp\Client( array(
+
+        // Instantiate the class defined in the classes property above.
+        $client = new $this->_classes['http_client']( array(
             "base_uri" => $this->_api_endpoint
         ) );
         //endregion
@@ -102,6 +110,14 @@ class ServiceClient
         return $client->request( $method, $path, array_merge( $this->_guzzle_request_options, array(
             "headers" => $headers
         ) ) );
+    }
+
+    /**
+     * Method split out for static testing.
+     * @return string
+     */
+    protected function _get_date_timestamp() {
+        return $date = date('D M j G:i:s T Y');
     }
 
     /**
@@ -121,5 +137,37 @@ class ServiceClient
         $string .= base64_encode(hash_hmac('sha1', $stringToSign, $this->_api_secret, TRUE));
 
         return $string;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGuzzleRequestOptions()
+    {
+        return $this->_guzzle_request_options;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiEndpoint()
+    {
+        return $this->_api_endpoint;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiAppId()
+    {
+        return $this->_api_app_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiSecret()
+    {
+        return $this->_api_secret;
     }
 }
