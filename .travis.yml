@@ -11,7 +11,7 @@ sudo: false
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
-  - phpunit
+  - phpunit --coverage-clover=coverage.xml
 
 before_install:
   - pip install --user codecov
