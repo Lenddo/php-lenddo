@@ -1,12 +1,15 @@
 # Lenddo PHP SDK
 
-[![Build Status](https://travis-ci.org/Lenddo/php-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/php-lenddo)
+[![Build Status](https://travis-ci.org/Lenddo/php-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/php-lenddo) [![codecov.io](https://img.shields.io/codecov/c/github/Lenddo/php-lenddo.svg)](http://codecov.io/github/Lenddo/php-lenddo?branch=master)
 
 This SDK will currently only allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular
 GuzzleHttp/Guzzle package. Calling the clientScore() and clientVerification() methods will return a 
 `Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
 
 # Installation
+The Lenddo PHP SDK is available via Composer and can be installed by running the `composer require lenddo/sdk` command.
+
+More information can be found here: https://packagist.org/packages/lenddo/sdk
 
 
 # Sample Usage
