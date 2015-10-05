@@ -12,3 +12,8 @@ before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
   - phpunit
+
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov
