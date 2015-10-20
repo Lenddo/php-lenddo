@@ -38,7 +38,7 @@ $response = $client->clientScore('CLIENT_ID');
 $status_code = $response->getStatusCode(); // 200
 
 // Retrieve the body of the response
-$score_results = json_decode($clientScore->getBody()->getContents());
+$score_results = json_decode($response->getBody()->getContents());
 
 // Return the score value and reason flags.
 $score_value = $score_results->score;
@@ -58,7 +58,7 @@ $response = $client->clientVerification('CLIENT_ID');
 $status_code = $response->getStatusCode(); // 200
 
 // Returns a JSON object for the requested verification.
-$verification_results = json_decode($clientScore->getBody()->getContents());
+$verification_results = json_decode($response->getBody()->getContents());
 
 $name_verified = $verification_results->verifications->name == 1;
 $verification_reason_codes = $verification_results->flags; // array
