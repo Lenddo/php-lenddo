@@ -18,8 +18,8 @@ More information can be found here: https://packagist.org/packages/lenddo/sdk
 <?php
 
 // Fill out the ID & Secret provided to you by your contact at Lenddo.
-$api_app_id = '';
-$api_app_secret = '';
+$id = '';
+$secret = '';
 
 // Require the Composer autoloader
 require 'vendor/autoload.php';
