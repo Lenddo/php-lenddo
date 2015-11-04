@@ -46,7 +46,7 @@ $score_flags = $score_results->flags;
 ```
 
 ### Get the verification results for your Lenddo Client
-Please refer to the [verification response documentation](docs/verification_response.md) to understand the returned 
+Please refer to the [verification response documentation](https://github.com/Lenddo/php-lenddo/blob/master/docs/verification_response.md) to understand the returned 
 structure of the verification object.
 
 ```php
