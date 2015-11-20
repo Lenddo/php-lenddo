@@ -97,11 +97,15 @@ $client = new Lenddo\WhiteLabelClient( $id, $secret );
 **Note**: All token providers must be **OAuth 2.0**
 
 PartnerToken has the following arguments:
+
 1. **provider** - this is the token provider. Valid values are as follows:
     `Facebook`, ` LinkedIn`, ` Yahoo`, ` WindowsLive`, or ` Google`
+
 2. **oauth_key** - this is the key returned by oauth for interacting with the token.
+
 3. **oauth_secret** - optional, leave `null` if not applicable. Some OAuth providers may return a secret, when this
     is returned Lenddo will required the secret to use the token.
+
 4. **token_data** - This is the raw token as it was received from the provider in Array format.
     This may include an **extra_data** key.
 
