@@ -2,8 +2,25 @@
 
 [![Build Status](https://travis-ci.org/Lenddo/php-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/php-lenddo) [![codecov.io](https://img.shields.io/codecov/c/github/Lenddo/php-lenddo.svg)](http://codecov.io/github/Lenddo/php-lenddo?branch=master) [![Packagist](https://img.shields.io/packagist/v/lenddo/sdk.svg)](https://packagist.org/packages/lenddo/sdk)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Installation](#installation)
+- [Primary Service Client Sample Usage](#primary-service-client-sample-usage)
+  - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
+    - [Get the score for your Lenddo Client](#get-the-score-for-your-lenddo-client)
+    - [Get the verification results for your Lenddo Client](#get-the-verification-results-for-your-lenddo-client)
+- [White Label Client](#white-label-client)
+  - [Introduction](#introduction)
+  - [Instantiating the Client](#instantiating-the-client)
+    - [PartnerToken](#partnertoken)
+    - [CommitPartnerJob](#commitpartnerjob)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 This SDK will currently only allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular
-GuzzleHttp\Guzzle package. Calling the clientScore() and clientVerification() methods will return a 
+**GuzzleHttp\Guzzle** package. Calling the methods on `ServiceClient` or `WhiteLabelClient` will return a 
 `Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
 
 # Installation
@@ -38,7 +55,7 @@ $response = $client->clientScore('CLIENT_ID');
 $status_code = $response->getStatusCode(); // 200
 
 // Retrieve the body of the response
-$score_results = json_decode($clientScore->getBody()->getContents());
+$score_results = json_decode($response->getBody()->getContents());
 
 // Return the score value and reason flags.
 $score_value = $score_results->score;
@@ -58,7 +75,7 @@ $response = $client->clientVerification('CLIENT_ID');
 $status_code = $response->getStatusCode(); // 200
 
 // Returns a JSON object for the requested verification.
-$verification_results = json_decode($clientScore->getBody()->getContents());
+$verification_results = json_decode($response->getBody()->getContents());
 
 $name_verified = $verification_results->verifications->name == 1;
 $verification_reason_codes = $verification_results->flags; // array
@@ -118,12 +135,28 @@ $response = $client->PartnerToken('Facebook', $oauth_key, $oauth_secret, $token_
 $status_code = $response->getStatusCode(); // 200
 
 // Retrieve the body of the response
-$score_results = json_decode($clientScore->getBody()->getContents());
+$post_token_results = json_decode($response->getBody()->getContents());
 
-// Return the score value and reason flags.
-$score_value = $score_results->score;
-$score_flags = $score_results->flags;
+// Get the profile ID
+$profile_id = $post_token_results->profile_id; // string - for example: 123FB
 ```
 
 
 ### CommitPartnerJob
+```php
+<?php
+
+// $profile_ids will be an array of the profile ID's that we've received as a response from PartnerToken
+$profile_ids = array( '123FB' );
+
+$response = $client->CommitPartnerJob($partner_script_id, $client_id, $profile_ids);
+
+// Get the Status Code for the response
+$status_code = $response->getStatusCode(); // 200
+
+// Retrieve the body of the response
+$commit_job_results = json_decode($response->getBody()->getContents());
+
+// Get the profile ID
+$success = $status_code === 200 && $commit_job_results->success = true;
+```
