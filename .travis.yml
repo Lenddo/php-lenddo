@@ -17,3 +17,6 @@ before_install:
   - pip install --user codecov
 after_success:
   - codecov
+
+notifications:
+  slack: lenddo:iJYeCC5sZSx2A0BW5dvgZiBe
