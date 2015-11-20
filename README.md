@@ -6,13 +6,14 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Installation](#installation)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
 - [Primary Service Client Sample Usage](#primary-service-client-sample-usage)
   - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
     - [Get the score for your Lenddo Client](#get-the-score-for-your-lenddo-client)
     - [Get the verification results for your Lenddo Client](#get-the-verification-results-for-your-lenddo-client)
 - [White Label Client](#white-label-client)
-  - [Introduction](#introduction)
+  - [Introduction](#introduction-1)
   - [Instantiating the Client](#instantiating-the-client)
     - [PartnerToken](#partnertoken)
     - [CommitPartnerJob](#commitpartnerjob)
