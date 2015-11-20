@@ -19,11 +19,13 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Introduction
+
 This SDK will currently only allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular
 **GuzzleHttp\Guzzle** package. Calling the methods on `ServiceClient` or `WhiteLabelClient` will return a 
 `Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
 
-# Installation
+## Installation
 The Lenddo PHP SDK is available via Composer and can be installed by running the `composer require lenddo/sdk` command.
 
 More information can be found here: https://packagist.org/packages/lenddo/sdk
@@ -88,10 +90,10 @@ _Use Lenddo services while keeping your own branding_
 The white label package comes in two service calls made to Lenddo which are meant to allow you to utilize Lenddo 
     services without having the user leave your own ecosystem.
 
-1. The first service call is the **PartnerToken** call which will allow you to send social network oauth tokens to
+1. The first service call is the **partnerToken** call which will allow you to send social network oauth tokens to
     Lenddo. These tokens will be used in the second step to provide scoring services for your client. This call returns
     a **profile_id** which you will be required to save so that you can send it to use for the second call.
-2. The second call which you make to Lenddo will be the **CommitPartnerJob** service call. This call creates a job for
+2. The second call which you make to Lenddo will be the **commitPartnerJob** service call. This call creates a job for
     scoring based on the a one time use id _(known as the client_id)_, a list of **profile_ids** which you gathered from
     the first service call, and finally a **partner_script_id** which dictates how Lenddo will inform you of the results.
 
@@ -118,18 +120,18 @@ PartnerToken has the following arguments:
 1. **provider** - this is the token provider. Valid values are as follows:
     `Facebook`, ` LinkedIn`, ` Yahoo`, ` WindowsLive`, or ` Google`
 
-2. **oauth_key** - this is the key returned by oauth for interacting with the token.
+2. **oauth key** - this is the key returned by oauth for interacting with the token.
 
-3. **oauth_secret** - optional, leave `null` if not applicable. Some OAuth providers may return a secret, when this
+3. **oauth secret** - optional, leave `null` if not applicable. Some OAuth providers may return a secret, when this
     is returned Lenddo will required the secret to use the token.
 
-4. **token_data** - This is the raw token as it was received from the provider in Array format.
+4. **token data** - This is the raw token as it was received from the provider in Array format.
     This may include an **extra_data** key.
 
 ```php
 <?php
 
-$response = $client->PartnerToken('Facebook', $oauth_key, $oauth_secret, $token_data);
+$response = $client->partnerToken('Facebook', $oauth_key, $oauth_secret, $token_data);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -143,13 +145,26 @@ $profile_id = $post_token_results->profile_id; // string - for example: 123FB
 
 
 ### CommitPartnerJob
+
+CommitPartnerJob has the following arguments:
+
+1. **partner script id** - Please reference the [developer section](https://partners.lenddo.com/developer_settings) 
+    of the partner dashboard. This will define how you're notified of scoring results.
+
+2. **client id** - This is essentially a one time use transaction id. Once this ID is used it cannot be used again.
+    You can use this value in the [`ServiceClient::clientScore`](#get-the-score-for-your-lenddo-client)
+    to retrieve the score results.
+    
+3. **profile ids** - This is an array of ID's composed from the results of the
+    [`WhiteLabelClient::PartnerToken`](#partnertoken) service call.
+
 ```php
 <?php
 
 // $profile_ids will be an array of the profile ID's that we've received as a response from PartnerToken
 $profile_ids = array( '123FB' );
 
-$response = $client->CommitPartnerJob($partner_script_id, $client_id, $profile_ids);
+$response = $client->commitPartnerJob($partner_script_id, $client_id, $profile_ids);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200

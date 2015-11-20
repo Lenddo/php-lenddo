@@ -31,7 +31,7 @@ class WhiteLabelClient extends Base
 	 * @param array $token_data
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function PartnerToken($provider, $oauth_key, $oauth_secret, $token_data = array()) {
+	public function partnerToken($provider, $oauth_key, $oauth_secret, $token_data = array()) {
 		if(!in_array($provider, $this->_valid_token_providers)) {
 			$valid_token_providers = join(', ', $this->_valid_token_providers);
 			throw new \InvalidArgumentException('$provider must be one of the following: ' . $valid_token_providers);
@@ -59,7 +59,7 @@ class WhiteLabelClient extends Base
 	 *   WhiteLabelClient class.
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function CommitPartnerJob($partner_script_id, $client_id, $profile_ids) {
+	public function commitPartnerJob($partner_script_id, $client_id, $profile_ids) {
 		if(count($profile_ids) === 0) {
 			throw new \InvalidArgumentException('$profile_ids must contain at least one entry.');
 		}
