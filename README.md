@@ -38,8 +38,8 @@ More information can be found here: https://packagist.org/packages/lenddo/sdk
 <?php
 
 // Fill out the ID & Secret provided to you by your contact at Lenddo.
-$api_app_id = '';
-$api_app_secret = '';
+$id = '';
+$secret = '';
 
 // Require the Composer autoloader
 require 'vendor/autoload.php';
@@ -66,7 +66,7 @@ $score_flags = $score_results->flags;
 ```
 
 ### Get the verification results for your Lenddo Client
-Please refer to the [verification response documentation](docs/verification_response.md) to understand the returned 
+Please refer to the [verification response documentation](https://github.com/Lenddo/php-lenddo/blob/master/docs/verification_response.md) to understand the returned 
 structure of the verification object.
 
 ```php
