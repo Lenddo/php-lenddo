@@ -1,22 +1,18 @@
 <?php
 
-namespace Lenddo\tests;
+namespace Lenddo\tests\cases;
+
+use Lenddo\tests\mocks\ServiceClientMock;
 
 class ServiceClientTest extends \PHPUnit_Framework_TestCase
 {
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';
 	const CLIENT_ID = 'CLIENT_ID_123';
-	const MOCK_HTTP_CLIENT = 'Lenddo\tests\mocks\GuzzleClientMock';
 
 	protected function _buildServiceClient($options = array())
 	{
-		// Mock out the guzzle client.
-		$options['classes'] = array(
-			'http_client' => static::MOCK_HTTP_CLIENT
-		);
-
-		return new mocks\ServiceClientMock(static::API_USER, static::API_SECRET, $options);
+		return new ServiceClientMock(static::API_USER, static::API_SECRET, $options);
 	}
 
 	public function testClientInstantiation()
@@ -84,8 +80,6 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function _testResultGetRequestOptions($mock_result, $expect_method, $expect_path)
 	{
-		$this->assertInstanceOf(static::MOCK_HTTP_CLIENT, $mock_result);
-
 		list($method, $path, $request_options) = $mock_result->getRequestArgs();
 		$construct_options = $mock_result->getConstructArgs()[0];
 
