@@ -90,12 +90,13 @@ class Base
 	/**
 	 * Perform a Guzzle request. Currently only supports GET requests.
 	 *
-	 * @param $method
-	 * @param $host
-	 * @param $path
+	 * @param string $method
+	 * @param string $host
+	 * @param string $path
+	 * @param null|string $body
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	protected function _request($method, $host, $path, $body = array())
+	protected function _request($method, $host, $path, $body = null)
 	{
 		//region Initiate the variables for this request
 		$method = strtoupper($method);
