@@ -2,9 +2,9 @@
 
 namespace Lenddo\tests\mocks;
 
-use Lenddo\ServiceClient;
+use Lenddo\WhiteLabelClient;
 
-class WhiteLabelClientMock extends ServiceClient {
+class WhiteLabelClientMock extends WhiteLabelClient {
 	use clients\BaseTrait;
 
 	public function __construct($api_app_id, $api_secret, array $options)

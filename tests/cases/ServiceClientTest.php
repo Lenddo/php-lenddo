@@ -2,10 +2,13 @@
 
 namespace Lenddo\tests\cases;
 
+use Lenddo\tests\cases\BaseClientTestTrait;
 use Lenddo\tests\mocks\ServiceClientMock;
 
 class ServiceClientTest extends \PHPUnit_Framework_TestCase
 {
+	use BaseClientTestTrait;
+
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';
 	const CLIENT_ID = 'CLIENT_ID_123';
@@ -17,23 +20,10 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 
 	public function testClientInstantiation()
 	{
-		$endpoint = 'http://foo.bar';
-		$guzzle_request_options = array(
-			'verify' => false // disable ssl verification
-		);
+		$client = $this->_buildServiceClient();
 
-		$client = $this->_buildServiceClient(array(
-			'hosts' => array(
-				'score_service' => $endpoint
-			),
-			'guzzle_request_options' => $guzzle_request_options
-		));
-
-		$this->assertInstanceOf('Lenddo\ServiceClient', $client);
-		$this->assertEquals(static::API_USER, $client->getApiAppId());
-		$this->assertEquals(static::API_SECRET, $client->getApiSecret());
-		$this->assertEquals($endpoint, $client->getHosts()['score_service']);
-		$this->assertEquals($guzzle_request_options, $client->getGuzzleRequestOptions());
+		// Ensure the proper "default" host is being defined here.
+		$this->assertEquals($this->_getExpectedBaseUri(), $client->getHosts()['score_service']);
 	}
 
 	public function testClientScore()
@@ -72,30 +62,12 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 		), $request_options);
 	}
 
+
 	/**
-	 * Exists for purposes of DRY code. This doesn't change from test to test so no reason to keep re-writing it.
-	 *
-	 * @param $mock_result \Lenddo\tests\mocks\GuzzleClientMock
-	 * @param $expect_method
-	 * @param $expect_path
-	 * @return mixed
+	 * @return String
 	 */
-	protected function _testResultGetRequestOptions($mock_result, $expect_method, $expect_path)
+	protected function _getExpectedBaseUri()
 	{
-		list($method, $path, $request_options) = $mock_result->getRequestArgs();
-		$construct_options = $mock_result->getConstructArgs()[0];
-
-		$this->assertEquals($expect_method, $method);
-		$this->assertEquals($expect_path, $path);
-
-		$this->assertArrayHasKey('headers', $request_options);
-		$this->assertArrayHasKey('Date', $request_options['headers']);
-
-		// Analyze Construction
-		$this->assertEquals(array(
-			'base_uri' => 'https://scoreservice.lenddo.com/'
-		), $construct_options);
-
-		return $request_options;
+		return 'https://scoreservice.lenddo.com/';
 	}
 }
