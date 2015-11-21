@@ -50,7 +50,8 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 				'Content-Type' => 'application/json',
 				'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
 				'Connection' => 'close'
-			)
+			),
+			'body' => null
 		), $request_options);
 	}
 
@@ -66,7 +67,8 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 				'Content-Type' => 'application/json',
 				'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
 				'Connection' => 'close'
-			)
+			),
+			'body' => null
 		), $request_options);
 	}
 
