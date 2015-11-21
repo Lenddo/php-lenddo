@@ -125,8 +125,8 @@ PartnerToken has the following arguments:
     `Facebook`, ` LinkedIn`, ` Yahoo`, ` WindowsLive`, or ` Google`
 
 3. **oauth key** - this is the key returned by oauth for interacting with the token.
-    **note:** The key and secret are not your _application_ key and secret. They're the values which are returned
-    after a user successfully authenticates with the social network's oauth.
+    > **note:** The **key** and **secret** are not your _application_ key and secret.
+    > They're the values which are returned after a user successfully authenticates with the social network's oauth.
 
 4. **oauth secret** - optional, leave `null` if not applicable. Some OAuth providers may return a secret, when this
     is returned Lenddo will required the secret to use the token.
