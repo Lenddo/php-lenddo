@@ -26,8 +26,9 @@ More information can be found here: https://packagist.org/packages/lenddo/sdk
   - [Introduction](#introduction)
   - [Instantiating the Client](#instantiating-the-client)
     - [PartnerToken](#partnertoken)
-    - [CommitPartnerJob](#commitpartnerjob)
       - [Errors](#errors)
+    - [CommitPartnerJob](#commitpartnerjob)
+      - [Errors](#errors-1)
   - [Error Handling](#error-handling)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -149,6 +150,18 @@ $post_token_results = json_decode($response->getBody()->getContents());
 $profile_id = $post_token_results->profile_id; // string - for example: 123FB
 ```
 
+#### Errors
+* **BAD_REQUEST** _HTTP Status Code: 400_
+    Request was malformed, or missing required data.
+    
+* **INVALID_TOKEN** _HTTP Status Code: 400_
+    Token data was missing required fields or fields had invalid values.
+
+* **TOKEN_FAILURE** _HTTP Status Code: 400_
+    Failure upon attempt to use the token.
+    
+* **INTERNAL_ERROR** _HTTP Status Code: 500_
+    An internal error occurred. If this persists please contact a Lenddo Representative.
 
 ### CommitPartnerJob
 
@@ -186,11 +199,8 @@ $success = $status_code === 200 && $commit_job_results->success = true;
 * **BAD_REQUEST** _HTTP Status Code: 400_
     Request was malformed, or missing required data.
     
-* **INVALID_TOKEN** _HTTP Status Code: 400_
-    Token data was missing required fields or fields had invalid values.
-
-* **TOKEN_FAILURE** _HTTP Status Code: 400_
-    Failure upon attempt to use the token.
+* **PARTNER_CLIENT_ALREADY_PROCESSED** _HTTP Status Code 400_
+    This occurs when the specified *client_id* has already been used.
     
 * **INTERNAL_ERROR** _HTTP Status Code: 500_
     An internal error occurred. If this persists please contact a Lenddo Representative.
