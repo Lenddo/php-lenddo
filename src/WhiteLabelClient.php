@@ -25,13 +25,14 @@ class WhiteLabelClient extends Base
 	/**
 	 * Posting network tokens, if successful, returns a "Profile ID" which is used when submitting a client for scoring.
 	 *
+	 * @param $client_id
 	 * @param $provider
 	 * @param $oauth_key
 	 * @param $oauth_secret
 	 * @param array $token_data
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function partnerToken($provider, $oauth_key, $oauth_secret, $token_data = array()) {
+	public function partnerToken($client_id, $provider, $oauth_key, $oauth_secret, $token_data = array()) {
 		if(!in_array($provider, $this->_valid_token_providers)) {
 			$valid_token_providers = join(', ', $this->_valid_token_providers);
 			throw new \InvalidArgumentException('$provider must be one of the following: ' . $valid_token_providers);
@@ -42,7 +43,8 @@ class WhiteLabelClient extends Base
 				'key' => $oauth_key,
 				'secret' => $oauth_secret
 			), $token_data ),
-			'provider' => $provider
+			'provider' => $provider,
+			'client_id' => $client_id
 		));
 	}
 

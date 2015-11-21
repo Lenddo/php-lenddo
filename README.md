@@ -2,24 +2,6 @@
 
 [![Build Status](https://travis-ci.org/Lenddo/php-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/php-lenddo) [![codecov.io](https://img.shields.io/codecov/c/github/Lenddo/php-lenddo.svg)](http://codecov.io/github/Lenddo/php-lenddo?branch=master) [![Packagist](https://img.shields.io/packagist/v/lenddo/sdk.svg)](https://packagist.org/packages/lenddo/sdk)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-  - [Introduction](#introduction)
-  - [Installation](#installation)
-- [Primary Service Client Sample Usage](#primary-service-client-sample-usage)
-  - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
-    - [Get the score for your Lenddo Client](#get-the-score-for-your-lenddo-client)
-    - [Get the verification results for your Lenddo Client](#get-the-verification-results-for-your-lenddo-client)
-- [White Label Client](#white-label-client)
-  - [Introduction](#introduction-1)
-  - [Instantiating the Client](#instantiating-the-client)
-    - [PartnerToken](#partnertoken)
-    - [CommitPartnerJob](#commitpartnerjob)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Introduction
 
 This SDK will currently only allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular
@@ -31,6 +13,24 @@ The Lenddo PHP SDK is available via Composer and can be installed by running the
 
 More information can be found here: https://packagist.org/packages/lenddo/sdk
 
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Primary Service Client Sample Usage](#primary-service-client-sample-usage)
+  - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
+    - [Get the score for your Lenddo Client](#get-the-score-for-your-lenddo-client)
+    - [Get the verification results for your Lenddo Client](#get-the-verification-results-for-your-lenddo-client)
+- [White Label Client](#white-label-client)
+  - [Introduction](#introduction)
+  - [Instantiating the Client](#instantiating-the-client)
+    - [PartnerToken](#partnertoken)
+    - [CommitPartnerJob](#commitpartnerjob)
+      - [Errors](#errors)
+  - [Error Handling](#error-handling)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Primary Service Client Sample Usage
 ## Create the Lenddo REST Service Client
@@ -118,21 +118,24 @@ $client = new Lenddo\WhiteLabelClient( $id, $secret );
 
 PartnerToken has the following arguments:
 
-1. **provider** - this is the token provider. Valid values are as follows:
+1. **client_id** - this is the client id that you're posting the token for. This must match the client_id you use in
+    the **CommitPartnerJob** step.
+
+2. **provider** - this is the token provider. Valid values are as follows:
     `Facebook`, ` LinkedIn`, ` Yahoo`, ` WindowsLive`, or ` Google`
 
-2. **oauth key** - this is the key returned by oauth for interacting with the token.
+3. **oauth key** - this is the key returned by oauth for interacting with the token.
 
-3. **oauth secret** - optional, leave `null` if not applicable. Some OAuth providers may return a secret, when this
+4. **oauth secret** - optional, leave `null` if not applicable. Some OAuth providers may return a secret, when this
     is returned Lenddo will required the secret to use the token.
 
-4. **token data** - This is the raw token as it was received from the provider in Array format.
+5. **token data** - This is the raw token as it was received from the provider in Array format.
     This may include an **extra_data** key.
 
 ```php
 <?php
 
-$response = $client->partnerToken('Facebook', $oauth_key, $oauth_secret, $token_data);
+$response = $client->partnerToken($client_id, 'Facebook', $oauth_key, $oauth_secret, $token_data);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -175,4 +178,30 @@ $commit_job_results = json_decode($response->getBody()->getContents());
 
 // Get the profile ID
 $success = $status_code === 200 && $commit_job_results->success = true;
+```
+
+#### Errors
+* **BAD_REQUEST** _HTTP Status Code: 400_
+    Request was malformed, or missing required data.
+    
+* **INVALID_TOKEN** _HTTP Status Code: 400_
+    Token data was missing required fields or fields had invalid values.
+
+* **TOKEN_FAILURE** _HTTP Status Code: 400_
+    Failure upon attempt to use the token.
+    
+* **INTERNAL_ERROR** _HTTP Status Code: 500_
+    An internal error occurred. If this persists please contact a Lenddo Representative.
+
+## Error Handling
+You can retrieve the body of an error via the following method:
+```php
+try {
+    //.. your request code here
+} catch ( Exception $e ) {
+    $http_status = $e->getResponse()->getStatusCode(); // 400
+    
+    // {"message": "Missing required token field refresh_token.", "name": "INVALID_TOKEN"}
+    $error_body = json_decode($e->getResponse()->getBody()->getContents());
+}
 ```
