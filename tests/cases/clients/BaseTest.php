@@ -34,4 +34,13 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($client_config['hosts']['some_service'], $client->getHosts()['some_service']);
 		$this->assertEquals($guzzle_request_options, $client->getGuzzleRequestOptions());
 	}
+
+	public function testTimestampGeneration()
+	{
+		$client = $this->_buildServiceClient();
+		$timestamp = $client->mockExposeGetTimestamp();
+
+		// Should look something like: Sat Nov 21 3:52:49 CET 2015
+		$this->assertRegExp('/\w{3} \w{3} \d{2} \d{1,2}(:\d{2}){2} \w{3} \d{4}/', $timestamp);
+	}
 }

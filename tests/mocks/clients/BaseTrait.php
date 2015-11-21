@@ -21,14 +21,18 @@ trait BaseTrait {
 
 	/**
 	 * Override the get date timestamp method so that we provide a constant time for expected testing.
-	 * @param bool $return_original
 	 * @return string
 	 */
-	protected function _getDateTimestamp($return_original = false)
+	protected function _getDateTimestamp()
 	{
-		if($return_original) {
-			return parent::_getDateTimestamp();
-		}
 		return 'Sun Oct 4 21:45:10 CEST 2015';
+	}
+
+	/**
+	 * Method used to expose the timestamp
+	 * @return mixed
+	 */
+	public function mockExposeGetTimestamp() {
+		return parent::_getDateTimestamp();
 	}
 }
