@@ -109,7 +109,8 @@ class Base
 
 		// Make the API request to Lenddo
 		return $client->request($method, $path, array_merge($this->_guzzle_request_options, array(
-			"headers" => $headers
+			"headers" => $headers,
+			"body" => $body
 		)));
 	}
 
