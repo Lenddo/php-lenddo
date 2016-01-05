@@ -22,7 +22,7 @@ class WebhookAuthentication {
 		// Configure this class.
 		$this->_config($options, TRUE);
 		// Get the credentials provider, callable function
-		$credentialsProvider = static::_credentialsProvider($webhook_key, $partner_script_id);
+		$credentialsProvider = $this->_credentialsProvider($webhook_key, $partner_script_id);
 		// Build the Hawk Server
 		$this->_hawk_server = HawkServerBuilder::create($credentialsProvider)->build();
 	}
@@ -53,7 +53,7 @@ class WebhookAuthentication {
 			// Retrieve the current value to the config array.
 			$config[$config_option_key] = $this->{"get" . $config_option_key}();
 
-			if (empty($options[$config_option_key]) || !is_string($options[$config_option_key])) {
+			if (empty($options[$config_option_key]) || !is_scalar($options[$config_option_key])) {
 				// These configuration options do not include this key.
 				continue;
 			}
@@ -102,8 +102,7 @@ class WebhookAuthentication {
 	 */
 	public function getPort()
 	{
-		$port = $this->_port;
-		return $port;
+		return $this->_port;
 	}
 
 	/**
@@ -189,18 +188,6 @@ class WebhookAuthentication {
 	}
 
 	/**
-	 * Simple body handling function. Split out for readability purposes and it'll likely be expanded as functionality
-	 * 	requirements expand.
-	 *
-	 * @param $raw_body
-	 * @return array the parsed body
-	 */
-	protected function _parseBody($raw_body) {
-		parse_str($raw_body, $array);
-		return $array;
-	}
-
-	/**
 	 * @param null $authorization_header
 	 * @param array $options
 	 * @return bool
@@ -236,15 +223,8 @@ class WebhookAuthentication {
 	/**
 	 * After authenticating a request and acting on the data passed from Lenddo to the webhook endpoint
 	 * 	call this method.
-	 *
-	 * CAUTION: If you need to continue processing in PHP set $exit to FALSE!
-	 *
-	 * @param bool $exit - exit the process?
 	 */
-	public function webhookAccepted($exit = TRUE) {
+	public function webhookAccepted() {
 		echo 'PHPSDK: webhook accepted';
-		if($exit) {
-			exit;
-		}
 	}
 }

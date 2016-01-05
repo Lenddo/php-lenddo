@@ -6,6 +6,15 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+        <blacklist>
+            <directory suffix=".php">./tests/</directory>
+            <directory suffix=".php">./vendor/</directory>
+        </blacklist>
+    </filter>
     <testsuites>
         <testsuite name="All">
             <directory>tests</directory>
