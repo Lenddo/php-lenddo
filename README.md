@@ -2,23 +2,28 @@
 
 [![Build Status](https://travis-ci.org/Lenddo/php-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/php-lenddo) [![codecov.io](https://img.shields.io/codecov/c/github/Lenddo/php-lenddo.svg)](http://codecov.io/github/Lenddo/php-lenddo?branch=master) [![Packagist](https://img.shields.io/packagist/v/lenddo/sdk.svg)](https://packagist.org/packages/lenddo/sdk)
 
-## Introduction
-
-This SDK will currently only allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular
-**GuzzleHttp\Guzzle** package. Calling the methods on `ServiceClient` or `WhiteLabelClient` will return a 
-`Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
-
 ## Installation
 The Lenddo PHP SDK is available via Composer and can be installed by running the `composer require lenddo/sdk` command.
 
 More information can be found here: https://packagist.org/packages/lenddo/sdk
+
+## Introduction
+### REST Services
+The [ServiceClient](#result-service-client) and [WhiteLabelClient](#white-label-client) This SDK will allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular **GuzzleHttp\Guzzle** package. Calling the methods on the `ServiceClient` or `WhiteLabelClient` classes will return a `Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
+
+The **ServiceClient** will allow you to retrieve the scoring and verification results from Lenddo.
+
+The **WhiteLabelClient** will allow you to utilize Lenddo services without any Lenddo branding. This method of implementation is the most complex but allows you to fully customize your users' experience.
+
+### Webhook Services
+While the REST Services allow you to retrieve the results of a scoring or verification job they require you to continue contacting Lenddo until results are available. For many situations this is less than ideal, due to this Lenddo offers a webhook service. The **webhook service** is a feature which allows you to receive a POST request at a designated URL the moment a result is available. For more please continue to the [Webhook Authentication](#webhooks) section of this documentation.
 
 ## Table of Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Primary Service Client Sample Usage](#primary-service-client-sample-usage)
+- [Result Service Client](#result-service-client)
   - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
     - [Get the score for your Lenddo Client](#get-the-score-for-your-lenddo-client)
     - [Get the verification results for your Lenddo Client](#get-the-verification-results-for-your-lenddo-client)
@@ -33,7 +38,9 @@ More information can be found here: https://packagist.org/packages/lenddo/sdk
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Primary Service Client Sample Usage
+# Result Service Client
+The `ServiceClient` allows partners to retrieve scoring and verification results from Lenddo REST API's.
+
 ## Create the Lenddo REST Service Client
 ```php
 <?php
@@ -217,3 +224,22 @@ try {
     $error_body = json_decode($e->getResponse()->getBody()->getContents());
 }
 ```
+
+
+# Webhooks
+Webhooks allow partners to receive notification that results are complete along with the results of scoring or verification the moment they're available. This is the fastest and most efficient way to receive results from Lenddo.
+
+## Webhook Setup
+Before doing any code implementation you'll need to perform the following steps:
+
+1. Navigate to the [Partners Dashboard](https://partners.lenddo.com) and **log in**
+2. On the left hand menu click **developers** and navigate to [**settings**](https://partners.lenddo.com/developer_settings)
+3. For each **partner script** that you want to receive notifications on go to **webhook details**
+    ![webhook details image](docs/img/webhook_details.PNG)
+4. Define a **webhook url** - this is the url that we will contact when results are available.
+5. Click **reset** near the **"Webhook Hash Key"** field and copy the new value.
+6. Click **save** at the bottom of the Partner Script settings.
+
+## Using the SDK
+### Requirements
+You will need two pieces of information to use the authentication portion of the SDK:
