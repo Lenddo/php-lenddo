@@ -4,7 +4,7 @@ namespace Lenddo;
 
 use Dflydev\Hawk\Server\ServerBuilder as HawkServerBuilder;
 use Dflydev\Hawk\Credentials\Credentials as HawkCredentials;
-use Lenddo\Exceptions\AuthorizationException;
+use Lenddo\exceptions\AuthorizationException;
 use Lenddo\exceptions\ReferenceException;
 
 class WebhookAuthentication {
