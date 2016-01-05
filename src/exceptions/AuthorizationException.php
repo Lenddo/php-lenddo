@@ -27,7 +27,8 @@ class AuthorizationException extends \Exception {
 	 */
 	public function __construct($hawkException)
 	{
-		$exception_class = end(explode('\\', get_class($hawkException)));
+		$hawkExceptionClassParts = explode('\\', get_class($hawkException));
+		$exception_class = end($hawkExceptionClassParts);
 		$message = $exception_class . ': ' . $hawkException->getMessage();
 		$code = $hawkException->getCode();
 
