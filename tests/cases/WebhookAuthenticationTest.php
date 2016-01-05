@@ -36,7 +36,7 @@ class WebhookAuthenticationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \Lenddo\Exceptions\ReferenceException
+	 * @expectedException \Lenddo\exceptions\ReferenceException
 	 * @expectedExceptionMessage Could not find Authorization Header!
 	 */
 	public function testGetAuthorizationHeaderExpectException() {
@@ -57,7 +57,7 @@ class WebhookAuthenticationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException \Lenddo\Exceptions\ReferenceException
+	 * @expectedException \Lenddo\exceptions\ReferenceException
 	 * @expectedExceptionMessage Could not find Authorization Header!
 	 */
 	public function testApacheHeadersNoData() {

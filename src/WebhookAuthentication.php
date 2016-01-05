@@ -5,7 +5,7 @@ namespace Lenddo;
 use Dflydev\Hawk\Server\ServerBuilder as HawkServerBuilder;
 use Dflydev\Hawk\Credentials\Credentials as HawkCredentials;
 use Lenddo\Exceptions\AuthorizationException;
-use Lenddo\Exceptions\ReferenceException;
+use Lenddo\exceptions\ReferenceException;
 
 class WebhookAuthentication {
 	const HTTP_REQUEST_METHOD = 'POST';

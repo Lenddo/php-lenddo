@@ -15,7 +15,7 @@ use Exception;
  *
  * Please contact Lenddo should there be doubt when receiving this Exception.
  *
- * @package Lenddo\Exceptions
+ * @package Lenddo\exceptions
  */
 class AuthorizationException extends \Exception {
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lenddo\Exceptions;
+namespace Lenddo\exceptions;
 
 /**
  * Class ReferenceException
@@ -8,7 +8,7 @@ namespace Lenddo\Exceptions;
  * This exception is thrown as a result of a critical component being unavailable
  * 	by any means possible.
  *
- * @package Lenddo\Exceptions
+ * @package Lenddo\exceptions
  */
 class ReferenceException extends \Exception {
 
