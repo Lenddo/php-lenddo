@@ -14,7 +14,7 @@ class WebhookAuthentication {
 
 	protected $_hawk_server;
 	protected $_host;
-	protected $_port = 80;
+	protected $_port = 443;
 	protected $_request_path;
 
 	public function __construct($webhook_key, $partner_script_id, $options = array() )
