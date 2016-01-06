@@ -1,3 +1,20 @@
+# Example Verification Response
+This example response is provided in JSON for illustrative purposes.
+
+## REST API Response
+The response body from the REST API will look similar to the javascript payload below.
+
+## Webhook "verification_complete" result payload
+Inside of the **result** payload provided in the **POST**ed body of the webhook this structure will be represented as a www/urlencoded string. PHP will automatically receive this in the _$_POST_ superglobal and parse it out for you. Because of this, you will be able to access these values naturally, for example:
+
+```php
+// Name Verification Result
+$_POST['result']['verifications']['name']
+// First name that was provided to Lenddo (to verify against)
+$_POST['result']['probes']['name'][0]
+```
+
+# Example Verification Payload (presented in JSON)
 ```javascript
 {
     // unix timestamp when this verification was last updated
