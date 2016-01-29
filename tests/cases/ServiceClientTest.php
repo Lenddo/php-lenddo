@@ -11,7 +11,8 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';
-	const CLIENT_ID = 'CLIENT_ID_123';
+	const PARTNER_SCRIPT_ID = '01234567890123456789abcd';
+	const APPLICATION_ID = 'APPLICATION_ID_123';
 
 	protected function _buildServiceClient($options = array())
 	{
@@ -28,37 +29,60 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 
 	public function testClientScore()
 	{
-		$expect_path = '/ClientScore/' . static::CLIENT_ID;
+		$expect_path = '/ClientScore/' . static::APPLICATION_ID;
 
-		$mock_result = $this->_buildServiceClient()->clientScore(static::CLIENT_ID);
+		$mock_result = $this->_buildServiceClient()->clientScore(static::APPLICATION_ID);
 		$request_options = $this->_testResultGetRequestOptions($mock_result, 'GET', $expect_path);
 
 		// Analyze Headers
 		$this->assertEquals(array(
 			'headers' => array(
-				'Authorization' => 'LENDDO foo:4hVTKBeF+2ZSc7jxhfQ/iF8jj2w=',
+				'Authorization' => 'LENDDO foo:4J4eL1vy86eZT/1e8nehluJbD9U=',
 				'Content-Type' => 'application/json',
 				'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
 				'Connection' => 'close'
 			),
-			'body' => null
+			'body' => null,
+			'query' => array()
 		), $request_options);
 	}
 
 	public function testClientVerification()
 	{
-		$expect_path = '/ClientVerification/' . static::CLIENT_ID;
-		$mock_result = $this->_buildServiceClient()->clientVerification(static::CLIENT_ID);
+		$expect_path = '/ClientVerification/' . static::APPLICATION_ID;
+		$mock_result = $this->_buildServiceClient()->clientVerification(static::APPLICATION_ID);
 		$request_options = $this->_testResultGetRequestOptions($mock_result, 'GET', $expect_path);
 
 		$this->assertEquals(array(
 			'headers' => array(
-				'Authorization' => 'LENDDO foo:zj+dYWKbSox8AOPv1MiLt91hUDo=',
+				'Authorization' => 'LENDDO foo:u4b2StQKkbckv+wkRdOw6omCwIE=',
 				'Content-Type' => 'application/json',
 				'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
 				'Connection' => 'close'
 			),
-			'body' => null
+			'body' => null,
+			'query' => array()
+		), $request_options);
+	}
+
+	public function testApplicationDecision()
+	{
+
+		$expect_path = '/ApplicationDecision/' . static::APPLICATION_ID;
+		$mock_result = $this->_buildServiceClient()->applicationDecision(static::APPLICATION_ID, static::PARTNER_SCRIPT_ID);
+		$request_options = $this->_testResultGetRequestOptions($mock_result, 'GET', $expect_path);
+
+		$this->assertEquals(array(
+			'headers' => array(
+				'Authorization' => 'LENDDO foo:UyydJgGYk5VmwSp0x961joMKhBI=',
+				'Content-Type' => 'application/json',
+				'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
+				'Connection' => 'close'
+			),
+			'body' => null,
+			'query' => array(
+				'partner_script_id' => static::PARTNER_SCRIPT_ID
+			)
 		), $request_options);
 	}
 

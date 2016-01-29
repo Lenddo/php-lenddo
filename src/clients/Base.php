@@ -59,11 +59,13 @@ class Base
 	/**
 	 * @param $host String
 	 * @param $path String
+	 * @param array $query
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	protected function _get($host, $path)
+	protected function _get($host, $path, $query = array())
 	{
-		return $this->_request('GET', $host, $path);
+		// @todo: Remove array filter after deprecation period of client_id to application_id naming conventions.
+		return $this->_request('GET', $host, $path, array_filter($query));
 	}
 
 	/**
@@ -73,7 +75,7 @@ class Base
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	protected function _postJSON($host, $path, $body) {
-		return $this->_request('POST', $host, $path, json_encode($body));
+		return $this->_request('POST', $host, $path, array(), json_encode($body));
 	}
 
 	/**
@@ -93,10 +95,11 @@ class Base
 	 * @param string $method
 	 * @param string $host
 	 * @param string $path
+	 * @param $query
 	 * @param null|string $body
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	protected function _request($method, $host, $path, $body = null)
+	protected function _request($method, $host, $path, $query = array(), $body = null)
 	{
 		//region Initiate the variables for this request
 		$method = strtoupper($method);
@@ -110,7 +113,8 @@ class Base
 		// Make the API request to Lenddo
 		return $client->request($method, $path, array_merge($this->_guzzle_request_options, array(
 			"headers" => $headers,
-			"body" => $body
+			"body" => $body,
+			"query" => $query
 		)));
 	}
 

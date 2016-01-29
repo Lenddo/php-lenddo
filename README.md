@@ -25,21 +25,33 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 
 - [Result Service Client](#result-service-client)
   - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
-    - [Get the score for your Lenddo Client](#get-the-score-for-your-lenddo-client)
-    - [Get the verification results for your Lenddo Client](#get-the-verification-results-for-your-lenddo-client)
+    - [Note about APPLICATION_ID](#note-about-application_id)
+    - [Get the score for your Lenddo Application](#get-the-score-for-your-lenddo-application)
+    - [Get the verification results for your Lenddo Application](#get-the-verification-results-for-your-lenddo-application)
+    - [Get your Lenddo Application Decision](#get-your-lenddo-application-decision)
 - [White Label Client](#white-label-client)
   - [Introduction](#introduction)
   - [Instantiating the Client](#instantiating-the-client)
     - [PartnerToken](#partnertoken)
+      - [Errors](#errors)
     - [CommitPartnerJob](#commitpartnerjob)
+      - [Errors](#errors-1)
   - [Error Handling](#error-handling)
 - [Webhooks](#webhooks)
   - [Webhook Setup](#webhook-setup)
   - [Using the SDK](#using-the-sdk)
     - [Requirements](#requirements)
     - [Optional Configuration](#optional-configuration)
-    - [Methods](#methods)
+      - [Host](#host)
+      - [Port](#port)
+      - [RequestPath](#requestpath)
     - [Webhook Call Details](#webhook-call-details)
+      - [Payload](#payload)
+        - [Events](#events)
+          - [verification_complete](#verification_complete)
+          - [scoring_complete](#scoring_complete)
+          - [application_decision_complete](#application_decision_complete)
+          - [logged_in](#logged_in)
     - [Usage](#usage)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -62,11 +74,21 @@ require 'vendor/autoload.php';
 $client = new Lenddo\ServiceClient( $id, $secret );
 ```
 
-### Get the score for your Lenddo Client
+### Note about APPLICATION_ID
+**APPLICATION_ID** is the value you passed to Lenddo to uniquely identify the application coming through. In previous
+instances you may have read this being referred to as a _client_id_ - it's important to understand that the purpose of
+these two items are the same despite having different names.
+
+### Get the score for your Lenddo Application
+Please refer to the [scoring response documentation](docs/scoring_response.md) to understand the returned 
+structure of the verification object.
+
+To retrieve the score you'll need the application ID and the partner script ID that you used to create the application.
+
 ```php
 <?php
 
-$response = $client->clientScore('CLIENT_ID');
+$response = $client->applicationScore('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -79,14 +101,16 @@ $score_value = $score_results->score;
 $score_flags = $score_results->flags;
 ```
 
-### Get the verification results for your Lenddo Client
+### Get the verification results for your Lenddo Application
 Please refer to the [verification response documentation](https://github.com/Lenddo/php-lenddo/blob/master/docs/verification_response.md) to understand the returned 
 structure of the verification object.
+
+To retrieve the verification you'll need the application ID and the partner script ID that you used to create the application.
 
 ```php
 <?php
 
-$response = $client->clientVerification('CLIENT_ID');
+$response = $client->applicationVerification('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -96,6 +120,39 @@ $verification_results = json_decode($response->getBody()->getContents());
 
 $name_verified = $verification_results->verifications->name == 1;
 $verification_reason_codes = $verification_results->flags; // array
+```
+
+### Get your Lenddo Application Decision
+Please refer to the [application decision response documentation](docs/application_decision_response.md) to understand
+the returned structure of the application decision object.
+
+To retrieve the decision you'll need the application ID and the partner script ID that you used to create the application.
+
+```php
+<?php
+
+$response = $client->applicationDecision('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
+
+// Get the status code for the response
+$status_code = $response->getStatusCode(); // 200
+
+$application_decision_results = json_decode($response->getBody()->getContents());
+
+// Get the decision
+switch($application_decision_results->decision) {
+    case "APPROVE":
+        // approved logic here
+        break;
+    case "DENY":
+        // deny logic here
+        break;
+    case "NO_DECISION":
+        // logic for further testing of the applicant here
+        break;
+    default:
+        // Notify necessary staff here
+        throw new Error('Unknown Application Decision Result!');
+}
 ```
 
 # White Label Client
@@ -109,7 +166,7 @@ The white label package comes in two service calls made to Lenddo which are mean
     Lenddo. These tokens will be used in the second step to provide scoring services for your client. This call returns
     a **profile_id** which you will be required to save so that you can send it to use for the second call.
 2. The second call which you make to Lenddo will be the **commitPartnerJob** service call. This call creates a job for
-    scoring based on the a one time use id _(known as the client_id)_, a list of **profile_ids** which you gathered from
+    scoring based on the a one time use id _(known as the APPLICATION_ID)_, a list of **profile_ids** which you gathered from
     the first service call, and finally a **partner_script_id** which dictates how Lenddo will inform you of the results.
 
 ## Instantiating the Client
@@ -132,7 +189,7 @@ $client = new Lenddo\WhiteLabelClient( $id, $secret );
 
 PartnerToken has the following arguments:
 
-1. **client_id** - this is the client id that you're posting the token for. This must match the client_id you use in
+1. **APPLICATION_ID** - this is the client id that you're posting the token for. This must match the APPLICATION_ID you use in
     the **CommitPartnerJob** step.
 
 2. **provider** - this is the token provider. Valid values are as follows:
@@ -151,7 +208,7 @@ PartnerToken has the following arguments:
 ```php
 <?php
 
-$response = $client->partnerToken($client_id, 'Facebook', $oauth_key, $oauth_secret, $token_data);
+$response = $client->partnerToken($APPLICATION_ID, 'Facebook', $oauth_key, $oauth_secret, $token_data);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -183,8 +240,8 @@ CommitPartnerJob has the following arguments:
 1. **partner script id** - Please reference the [developer section](https://partners.lenddo.com/developer_settings) 
     of the partner dashboard. This will define how you're notified of scoring results.
 
-2. **client id** - This is essentially a one time use transaction id. Once this ID is used it cannot be used again.
-    You can use this value in the [`ServiceClient::clientScore`](#get-the-score-for-your-lenddo-client)
+2. **application id** - This is essentially a one time use transaction id. Once this ID is used it cannot be used again.
+    You can use this value in the [`ServiceClient::applicationScore`](#get-the-score-for-your-lenddo-application)
     to retrieve the score results.
     
 3. **profile ids** - This is an array of ID's composed from the results of the
@@ -196,7 +253,7 @@ CommitPartnerJob has the following arguments:
 // $profile_ids will be an array of the profile ID's that we've received as a response from PartnerToken
 $profile_ids = array( '123FB' );
 
-$response = $client->commitPartnerJob($partner_script_id, $client_id, $profile_ids);
+$response = $client->commitPartnerJob($partner_script_id, $APPLICATION_ID, $profile_ids);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -213,7 +270,7 @@ $success = $status_code === 200 && $commit_job_results->success = true;
     Request was malformed, or missing required data.
     
 * **PARTNER_CLIENT_ALREADY_PROCESSED** _HTTP Status Code 400_
-    This occurs when the specified *client_id* has already been used.
+    This occurs when the specified *APPLICATION_ID* has already been used.
     
 * **INTERNAL_ERROR** _HTTP Status Code: 500_
     An internal error occurred. If this persists please contact a Lenddo Representative.
@@ -275,7 +332,7 @@ The payload of the POST request is `application/x-www-form-urlencoded`. This mea
 The structure of the payload is as follows:
 ```php
 $_POST = array(
-    'client_id' => 'your_client_id_123', // this is the client id you sent to us when you passed the user to Lenddo
+    'APPLICATION_ID' => 'your_APPLICATION_ID_123', // this is the client id you sent to us when you passed the user to Lenddo
     'event' => 'scoring_complete',
     'result' => array(
         'score' =>  687,
@@ -288,10 +345,13 @@ $_POST = array(
 Events describe why we're contacting you. There are three valid events:
 
 ###### verification_complete
-The user has been verified. If the verification was successful you can find the result in the `result` array. To understand how the `result` array should look like please refer to the [verification response documentation](docs/verification_response.md) 
+The application has been verified. If the verification was successful you can find the result in the `result` array. To understand how the `result` array should look like please refer to the [verification response documentation](docs/verification_response.md) 
 
 ###### scoring_complete
-The user has been scored. If the scoring was successful you can find the result in the `result` array. To understand how the `result` array should look please refer to the [scoring response documentation](docs/scoring_response.md)
+The application has been scored. If the scoring was successful you can find the result in the `result` array. To understand how the `result` array should look please refer to the [scoring response documentation](docs/scoring_response.md)
+
+###### application_decision_complete
+The application has received an APPROVE/DENY decision. If the decision was successful you can find the result in the `result` array. To understand how the `result` array should look please refer to the [application decision response documentation](docs/application_decision_response.md)
 
 ###### logged_in
 This occurs after the user has identified with us. Because they have not been submitted to our system just yet it is not guaranteed that you will not receive another logged_in notification for this user if they cancel or return with another browser in a small window of time. No data accompanies the `result` array with this request.
