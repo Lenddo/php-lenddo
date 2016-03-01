@@ -342,18 +342,18 @@ $_POST = array(
 ```
 
 ##### Events
-Events describe why we're contacting you. There are three valid events:
+Events describe why we're contacting you. There are four valid events:
 
-###### verification_complete
+###### 1. verification_complete
 The application has been verified. If the verification was successful you can find the result in the `result` array. To understand how the `result` array should look like please refer to the [verification response documentation](docs/verification_response.md) 
 
-###### scoring_complete
+###### 2. scoring_complete
 The application has been scored. If the scoring was successful you can find the result in the `result` array. To understand how the `result` array should look please refer to the [scoring response documentation](docs/scoring_response.md)
 
-###### application_decision_complete
+###### 3. application_decision_complete
 The application has received an APPROVE/DENY decision. If the decision was successful you can find the result in the `result` array. To understand how the `result` array should look please refer to the [application decision response documentation](docs/application_decision_response.md)
 
-###### logged_in
+###### 4. logged_in
 This occurs after the user has identified with us. Because they have not been submitted to our system just yet it is not guaranteed that you will not receive another logged_in notification for this user if they cancel or return with another browser in a small window of time. No data accompanies the `result` array with this request.
 
 ### Usage
