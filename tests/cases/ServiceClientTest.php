@@ -41,7 +41,10 @@ class ServiceClientTest extends \Lenddo\tests\cases\BaseClientTest
 				'Connection' => 'close'
 			),
 			'body' => null,
-			'query' => array()
+			'query' => array(),
+			'method' => 'GET',
+			'path' => '/ClientScore/APPLICATION_ID_123',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
@@ -59,7 +62,10 @@ class ServiceClientTest extends \Lenddo\tests\cases\BaseClientTest
 				'Connection' => 'close'
 			),
 			'body' => null,
-			'query' => array()
+			'query' => array(),
+			'method' => 'GET',
+			'path' => '/ClientVerification/APPLICATION_ID_123',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
@@ -80,7 +86,10 @@ class ServiceClientTest extends \Lenddo\tests\cases\BaseClientTest
 			'body' => null,
 			'query' => array(
 				'partner_script_id' => static::PARTNER_SCRIPT_ID
-			)
+			),
+			'method' => 'GET',
+			'path' => '/ApplicationDecision/APPLICATION_ID_123',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 

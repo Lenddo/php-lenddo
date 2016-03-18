@@ -60,7 +60,10 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 					'Connection' => 'close',
 				),
 			'body' => '{"token_data":{"key":"I am a key!","secret":"Open Sesame.","extra_data":{"foo":"bar"}},"provider":"Google","client_id":"123"}',
-			'query' => array()
+			'query' => array(),
+			'method' => 'POST',
+			'path' => '/PartnerToken',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
@@ -93,7 +96,10 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 					'Connection' => 'close',
 				),
 			'body' => '{"client_id":"123","profile_ids":["123FB","ABC@gmail.comEM"],"partner_script_id":"012345678901234567891234"}',
-			'query' => array()
+			'query' => array(),
+			'method' => 'POST',
+			'path' => '/CommitPartnerJob',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
