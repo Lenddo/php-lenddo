@@ -3,7 +3,7 @@
 namespace Lenddo\clients\guzzle_handlers;
 
 use Guzzle\Http\Client as GuzzleClient;
-use Lenddo\clients\guzzle_handlers\response\V3Response;
+use Lenddo\clients\guzzle_handlers\response\V3Response as Response;
 
 class GuzzleV3Handler implements HandlerInterface {
 	protected $_base_uri;
@@ -22,6 +22,6 @@ class GuzzleV3Handler implements HandlerInterface {
 
 		$request = $guzzle_client->createRequest($method, $path, $headers, $body, $guzzle_options);
 
-		return new V3Response($request, $request->send());
+		return new Response($request, $request->send());
 	}
 }
