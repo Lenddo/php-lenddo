@@ -1,6 +1,7 @@
 <?php
 
 namespace Lenddo\clients\guzzle_handlers\response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class V4Response
@@ -10,6 +11,9 @@ namespace Lenddo\clients\guzzle_handlers\response;
  * @package Lenddo\clients\guzzle_handlers\response
  */
 class V4Response implements ResponseInterface {
+	/**
+	 * @var Response
+	 */
 	protected $_guzzle_response;
 	protected $_guzzle_request;
 

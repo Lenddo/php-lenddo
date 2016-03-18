@@ -4,6 +4,7 @@ namespace Lenddo\clients;
 
 use Lenddo\clients\guzzle_handlers\HandlerInterface;
 use Lenddo\clients\guzzle_handlers\response\ResponseInterface;
+use Lenddo\clients\guzzle_handlers\HandlerResolver;
 
 /**
  * Class Base
@@ -20,32 +21,17 @@ class Base
 	protected $_hosts = array();
 
 	protected $_classes = array(
-		'http_client' => array(
-			'\GuzzleHttp\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV4Handler',
-			'\Guzzle\Http\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV3Handler'
-		)
+		'http_client' => ''
 	);
 	protected $_guzzle_request_options = array();
 
 	public function __construct($api_app_id, $api_secret, $options = array())
 	{
+
 		$this->_api_app_id = $api_app_id;
 		$this->_api_secret = $api_secret;
 
-		if (is_array($this->_classes['http_client'])) {
-			foreach ($this->_classes['http_client'] as $http_client => $client_interface) {
-				if(!class_exists($http_client)) {
-					continue;
-				}
-
-				$this->_classes['http_client'] = $client_interface;
-				break;
-			}
-		}
-
-		if (is_array($this->_classes['http_client'])) {
-			throw new \Exception('No Guzzle classes found! Did you run "php composer.phar install"?');
-		}
+		$this->_classes['http_client'] = HandlerResolver::resolve();
 
 		if ($options) {
 			$this->configure($options);
