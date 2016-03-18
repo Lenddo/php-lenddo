@@ -38,9 +38,10 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 	public function testClientInstantiation()
 	{
 		$client = $this->_buildServiceClient();
+		$hosts = $client->getHosts();
 
 		// Ensure the proper "default" host is being defined here.
-		$this->assertEquals($this->_getExpectedBaseUri(), $client->getHosts()['network_service']);
+		$this->assertEquals($this->_getExpectedBaseUri(), $hosts['network_service']);
 	}
 
 	public function testPartnerToken()
