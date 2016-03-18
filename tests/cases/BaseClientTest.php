@@ -19,7 +19,8 @@ abstract class BaseClientTest extends \PHPUnit_Framework_TestCase {
 	protected function _testResultGetRequestOptions($mock_result, $expect_method, $expect_path)
 	{
 		list($method, $path, $request_options) = $mock_result->getRequestArgs();
-		$construct_options = $mock_result->getConstructArgs()[0];
+		$construct_options = $mock_result->getConstructArgs();
+		$construct_options = $construct_options[0];
 
 		$this->assertEquals($expect_method, $method);
 		$this->assertEquals($expect_path, $path);
