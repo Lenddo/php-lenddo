@@ -94,7 +94,7 @@ $response = $client->applicationScore('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
 $status_code = $response->getStatusCode(); // 200
 
 // Retrieve the body of the response
-$score_results = json_decode($response->getBody()->getContents());
+$score_results = $response->getBody();
 
 // Return the score value and reason flags.
 $score_value = $score_results->score;
@@ -116,7 +116,7 @@ $response = $client->applicationVerification('APPLICATION_ID', 'PARTNER_SCRIPT_I
 $status_code = $response->getStatusCode(); // 200
 
 // Returns a JSON object for the requested verification.
-$verification_results = json_decode($response->getBody()->getContents());
+$verification_results = $response->getBody();
 
 $name_verified = $verification_results->verifications->name == 1;
 $verification_reason_codes = $verification_results->flags; // array
@@ -136,7 +136,7 @@ $response = $client->applicationDecision('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
 // Get the status code for the response
 $status_code = $response->getStatusCode(); // 200
 
-$application_decision_results = json_decode($response->getBody()->getContents());
+$application_decision_results = $response->getBody();
 
 // Get the decision
 switch($application_decision_results->decision) {
@@ -214,7 +214,7 @@ $response = $client->partnerToken($APPLICATION_ID, 'Facebook', $oauth_key, $oaut
 $status_code = $response->getStatusCode(); // 200
 
 // Retrieve the body of the response
-$post_token_results = json_decode($response->getBody()->getContents());
+$post_token_results = $response->getBody();
 
 // Get the profile ID
 $profile_id = $post_token_results->profile_id; // string - for example: 123FB
@@ -259,7 +259,7 @@ $response = $client->commitPartnerJob($partner_script_id, $APPLICATION_ID, $prof
 $status_code = $response->getStatusCode(); // 200
 
 // Retrieve the body of the response
-$commit_job_results = json_decode($response->getBody()->getContents());
+$commit_job_results = $response->getBody();
 
 // Get the profile ID
 $success = $status_code === 200 && $commit_job_results->success = true;
