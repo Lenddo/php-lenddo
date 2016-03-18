@@ -2,6 +2,8 @@
 
 namespace Lenddo\clients;
 
+use Lenddo\clients\guzzle_handlers\HandlerInterface;
+
 /**
  * Class Base
  *
@@ -17,7 +19,10 @@ class Base
 	protected $_hosts = array();
 
 	protected $_classes = array(
-		'http_client' => '\GuzzleHttp\Client'
+		'http_client' => array(
+			'\GuzzleHttp\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV5Handler',
+			'\Guzzle\Http\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV3Handler'
+		)
 	);
 	protected $_guzzle_request_options = array();
 
@@ -25,6 +30,21 @@ class Base
 	{
 		$this->_api_app_id = $api_app_id;
 		$this->_api_secret = $api_secret;
+
+		if (is_array($this->_classes['http_client'])) {
+			foreach ($this->_classes['http_client'] as $http_client => $client_interface) {
+				if(!class_exists($http_client)) {
+					continue;
+				}
+
+				$this->_classes['http_client'] = $client_interface;
+				break;
+			}
+		}
+
+		if (is_array($this->_classes['http_client'])) {
+			throw new \Exception('No Guzzle classes found! Did you run "php composer.phar install"?');
+		}
 
 		if ($options) {
 			$this->configure($options);
@@ -83,11 +103,11 @@ class Base
 	 * Returns the currently configured 'http_client' class. This is broken out so that it's
 	 *  type can be clearly communicated to the IDE.
 	 * @param array $config
-	 * @return \GuzzleHttp\Client
+	 * @return HandlerInterface
 	 */
-	protected function _getHttpClient($config = array())
+	protected function _getHttpClient($base_uri)
 	{
-		return new $this->_classes['http_client']($config);
+		return new $this->_classes['http_client']($base_uri);
 	}
 
 	/**
@@ -106,17 +126,10 @@ class Base
 		$method = strtoupper($method);
 		$path = '/' . $path;
 		$headers = $this->getHeaders($method, $body, $path);
-		$client = $this->_getHttpClient(array(
-			"base_uri" => $host
-		));
+		$client = $this->_getHttpClient($host);
 		//endregion
 
-		// Make the API request to Lenddo
-		return $client->request($method, $path, array_merge($this->_guzzle_request_options, array(
-			"headers" => $headers,
-			"body" => $body,
-			"query" => $query
-		)));
+		return $client->request($method, $path, $query, $headers, $body, $this->_guzzle_request_options);
 	}
 
 	/**
