@@ -2,13 +2,10 @@
 
 namespace Lenddo\tests\cases;
 
-use Lenddo\tests\cases\BaseClientTestTrait;
 use Lenddo\tests\mocks\ServiceClientMock;
 
-class ServiceClientTest extends \PHPUnit_Framework_TestCase
+class ServiceClientTest extends \Lenddo\tests\cases\BaseClientTest
 {
-	use BaseClientTestTrait;
-
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';
 	const PARTNER_SCRIPT_ID = '01234567890123456789abcd';

@@ -2,12 +2,10 @@
 
 namespace Lenddo\tests\cases;
 
-use Lenddo\tests\cases\BaseClientTestTrait;
 use Lenddo\tests\mocks\WhiteLabelClientMock;
 
-class WhiteLabelClientTest extends \PHPUnit_Framework_TestCase
+class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 {
-	use BaseClientTestTrait;
 
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';

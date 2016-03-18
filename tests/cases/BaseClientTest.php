@@ -2,7 +2,7 @@
 
 namespace Lenddo\tests\cases;
 
-trait BaseClientTestTrait {
+abstract class BaseClientTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @return String
 	 */

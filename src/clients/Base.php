@@ -53,6 +53,7 @@ class Base
 					break;
 			}
 		}
+
 		return $this;
 	}
 
