@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "guzzlehttp/guzzle": "6.1.*",
+        "guzzlehttp/guzzle": "~3|~4|~5.3|~6.0.1|~6.1",
         "Dflydev/hawk": "^0.0.0"
     },
     "autoload": {
