@@ -3,9 +3,9 @@
 namespace Lenddo\clients\guzzle_handlers;
 
 use GuzzleHttp\Client as GuzzleClient;
-use Lenddo\clients\guzzle_handlers\response\V5Response as Response;
+use Lenddo\clients\guzzle_handlers\response\V4Response as Response;
 
-class GuzzleV5Handler implements HandlerInterface {
+class GuzzleV4Handler implements HandlerInterface {
 	protected $_base_uri;
 
 	public function __construct($base_uri)

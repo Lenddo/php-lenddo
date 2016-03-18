@@ -3,6 +3,7 @@
 namespace Lenddo\clients;
 
 use Lenddo\clients\guzzle_handlers\HandlerInterface;
+use Lenddo\clients\guzzle_handlers\response\ResponseInterface;
 
 /**
  * Class Base
@@ -20,7 +21,7 @@ class Base
 
 	protected $_classes = array(
 		'http_client' => array(
-			'\GuzzleHttp\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV5Handler',
+			'\GuzzleHttp\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV4Handler',
 			'\Guzzle\Http\Client' => 'Lenddo\clients\guzzle_handlers\GuzzleV3Handler'
 		)
 	);
@@ -81,7 +82,7 @@ class Base
 	 * @param $host String
 	 * @param $path String
 	 * @param array $query
-	 * @return \Psr\Http\Message\ResponseInterface
+	 * @return ResponseInterface
 	 */
 	protected function _get($host, $path, $query = array())
 	{
@@ -93,7 +94,7 @@ class Base
 	 * @param $host
 	 * @param $path
 	 * @param $body
-	 * @return \Psr\Http\Message\ResponseInterface
+	 * @return ResponseInterface
 	 */
 	protected function _postJSON($host, $path, $body) {
 		return $this->_request('POST', $host, $path, array(), json_encode($body));
@@ -118,7 +119,7 @@ class Base
 	 * @param string $path
 	 * @param $query
 	 * @param null|string $body
-	 * @return \Psr\Http\Message\ResponseInterface
+	 * @return ResponseInterface
 	 */
 	protected function _request($method, $host, $path, $query = array(), $body = null)
 	{

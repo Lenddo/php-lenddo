@@ -2,7 +2,14 @@
 
 namespace Lenddo\clients\guzzle_handlers\response;
 
-class V5Response implements ResponseInterface {
+/**
+ * Class V4Response
+ *
+ * Guzzle v4 and v5 use the same request / response methods
+ *
+ * @package Lenddo\clients\guzzle_handlers\response
+ */
+class V4Response implements ResponseInterface {
 	protected $_guzzle_response;
 	protected $_guzzle_request;
 
