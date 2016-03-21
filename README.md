@@ -12,6 +12,7 @@
   - [Service Client](#service-client)
   - [Whitelabel Client](#whitelabel-client)
 - [Webhook Management](#webhook-management)
+- [ChangeLog](#changelog)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -42,3 +43,13 @@ The **WhiteLabelClient** will allow you to utilize Lenddo services without any L
 ## Webhook Management
 While the REST Services allow you to retrieve the results of a scoring or verification job they require you to continue contacting Lenddo until results are available. For many situations this is less than ideal. Due to this Lenddo offers a webhook service. The webhook service is a feature which allows you to receive a POST request at a designated URL the moment a result is available.
 - [Read the documentation here](docs/webhooks.md)
+
+## ChangeLog
+**v2.0** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.0
+
+**Summary**
+* Breaking changes from v1.x
+* Support for PHP 5.3, 5.4
+* Support for Guzzle 3, 4, 5
+* Updated Documentation
+* Certificate Authority Root Inclusion
