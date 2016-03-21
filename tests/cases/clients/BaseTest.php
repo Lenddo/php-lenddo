@@ -28,10 +28,11 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$client = $this->_buildServiceClient($client_config);
+		$hosts = $client->getHosts();
 
 		$this->assertEquals(static::API_USER, $client->getApiAppId());
 		$this->assertEquals(static::API_SECRET, $client->getApiSecret());
-		$this->assertEquals($client_config['hosts']['some_service'], $client->getHosts()['some_service']);
+		$this->assertEquals($client_config['hosts']['some_service'], $hosts['some_service']);
 		$this->assertEquals($guzzle_request_options, $client->getGuzzleRequestOptions());
 	}
 

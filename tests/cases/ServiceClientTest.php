@@ -2,13 +2,10 @@
 
 namespace Lenddo\tests\cases;
 
-use Lenddo\tests\cases\BaseClientTestTrait;
 use Lenddo\tests\mocks\ServiceClientMock;
 
-class ServiceClientTest extends \PHPUnit_Framework_TestCase
+class ServiceClientTest extends \Lenddo\tests\cases\BaseClientTest
 {
-	use BaseClientTestTrait;
-
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';
 	const PARTNER_SCRIPT_ID = '01234567890123456789abcd';
@@ -22,9 +19,10 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 	public function testClientInstantiation()
 	{
 		$client = $this->_buildServiceClient();
+		$hosts = $client->getHosts();
 
 		// Ensure the proper "default" host is being defined here.
-		$this->assertEquals($this->_getExpectedBaseUri(), $client->getHosts()['score_service']);
+		$this->assertEquals($this->_getExpectedBaseUri(), $hosts['score_service']);
 	}
 
 	public function testClientScore()
@@ -43,7 +41,10 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 				'Connection' => 'close'
 			),
 			'body' => null,
-			'query' => array()
+			'query' => array(),
+			'method' => 'GET',
+			'path' => '/ClientScore/APPLICATION_ID_123',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
@@ -61,7 +62,10 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 				'Connection' => 'close'
 			),
 			'body' => null,
-			'query' => array()
+			'query' => array(),
+			'method' => 'GET',
+			'path' => '/ClientVerification/APPLICATION_ID_123',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
@@ -82,7 +86,10 @@ class ServiceClientTest extends \PHPUnit_Framework_TestCase
 			'body' => null,
 			'query' => array(
 				'partner_script_id' => static::PARTNER_SCRIPT_ID
-			)
+			),
+			'method' => 'GET',
+			'path' => '/ApplicationDecision/APPLICATION_ID_123',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 

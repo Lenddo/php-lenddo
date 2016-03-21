@@ -2,6 +2,10 @@
 
 namespace Lenddo\clients;
 
+use Lenddo\clients\guzzle_handlers\HandlerInterface;
+use Lenddo\clients\guzzle_handlers\response\ResponseInterface;
+use Lenddo\clients\guzzle_handlers\HandlerResolver;
+
 /**
  * Class Base
  *
@@ -17,14 +21,17 @@ class Base
 	protected $_hosts = array();
 
 	protected $_classes = array(
-		'http_client' => '\GuzzleHttp\Client'
+		'http_client' => ''
 	);
 	protected $_guzzle_request_options = array();
 
 	public function __construct($api_app_id, $api_secret, $options = array())
 	{
+
 		$this->_api_app_id = $api_app_id;
 		$this->_api_secret = $api_secret;
+
+		$this->_classes['http_client'] = HandlerResolver::resolve();
 
 		if ($options) {
 			$this->configure($options);
@@ -53,6 +60,7 @@ class Base
 					break;
 			}
 		}
+
 		return $this;
 	}
 
@@ -60,7 +68,7 @@ class Base
 	 * @param $host String
 	 * @param $path String
 	 * @param array $query
-	 * @return \Psr\Http\Message\ResponseInterface
+	 * @return ResponseInterface
 	 */
 	protected function _get($host, $path, $query = array())
 	{
@@ -72,7 +80,7 @@ class Base
 	 * @param $host
 	 * @param $path
 	 * @param $body
-	 * @return \Psr\Http\Message\ResponseInterface
+	 * @return ResponseInterface
 	 */
 	protected function _postJSON($host, $path, $body) {
 		return $this->_request('POST', $host, $path, array(), json_encode($body));
@@ -82,11 +90,11 @@ class Base
 	 * Returns the currently configured 'http_client' class. This is broken out so that it's
 	 *  type can be clearly communicated to the IDE.
 	 * @param array $config
-	 * @return \GuzzleHttp\Client
+	 * @return HandlerInterface
 	 */
-	protected function _getHttpClient($config = array())
+	protected function _getHttpClient($base_uri)
 	{
-		return new $this->_classes['http_client']($config);
+		return new $this->_classes['http_client']($base_uri);
 	}
 
 	/**
@@ -97,7 +105,7 @@ class Base
 	 * @param string $path
 	 * @param $query
 	 * @param null|string $body
-	 * @return \Psr\Http\Message\ResponseInterface
+	 * @return ResponseInterface
 	 */
 	protected function _request($method, $host, $path, $query = array(), $body = null)
 	{
@@ -105,17 +113,10 @@ class Base
 		$method = strtoupper($method);
 		$path = '/' . $path;
 		$headers = $this->getHeaders($method, $body, $path);
-		$client = $this->_getHttpClient(array(
-			"base_uri" => $host
-		));
+		$client = $this->_getHttpClient($host);
 		//endregion
 
-		// Make the API request to Lenddo
-		return $client->request($method, $path, array_merge($this->_guzzle_request_options, array(
-			"headers" => $headers,
-			"body" => $body,
-			"query" => $query
-		)));
+		return $client->request($method, $path, $query, $headers, $body, $this->_guzzle_request_options);
 	}
 
 	/**

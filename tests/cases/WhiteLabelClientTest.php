@@ -2,12 +2,10 @@
 
 namespace Lenddo\tests\cases;
 
-use Lenddo\tests\cases\BaseClientTestTrait;
 use Lenddo\tests\mocks\WhiteLabelClientMock;
 
-class WhiteLabelClientTest extends \PHPUnit_Framework_TestCase
+class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 {
-	use BaseClientTestTrait;
 
 	const API_USER = 'foo';
 	const API_SECRET = 'bar';
@@ -40,9 +38,10 @@ class WhiteLabelClientTest extends \PHPUnit_Framework_TestCase
 	public function testClientInstantiation()
 	{
 		$client = $this->_buildServiceClient();
+		$hosts = $client->getHosts();
 
 		// Ensure the proper "default" host is being defined here.
-		$this->assertEquals($this->_getExpectedBaseUri(), $client->getHosts()['network_service']);
+		$this->assertEquals($this->_getExpectedBaseUri(), $hosts['network_service']);
 	}
 
 	public function testPartnerToken()
@@ -61,7 +60,10 @@ class WhiteLabelClientTest extends \PHPUnit_Framework_TestCase
 					'Connection' => 'close',
 				),
 			'body' => '{"token_data":{"key":"I am a key!","secret":"Open Sesame.","extra_data":{"foo":"bar"}},"provider":"Google","client_id":"123"}',
-			'query' => array()
+			'query' => array(),
+			'method' => 'POST',
+			'path' => '/PartnerToken',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 
@@ -94,7 +96,10 @@ class WhiteLabelClientTest extends \PHPUnit_Framework_TestCase
 					'Connection' => 'close',
 				),
 			'body' => '{"client_id":"123","profile_ids":["123FB","ABC@gmail.comEM"],"partner_script_id":"012345678901234567891234"}',
-			'query' => array()
+			'query' => array(),
+			'method' => 'POST',
+			'path' => '/CommitPartnerJob',
+			'guzzle_options' => Array ()
 		), $request_options);
 	}
 

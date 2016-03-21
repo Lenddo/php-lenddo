@@ -2,7 +2,7 @@
 
 namespace Lenddo\tests\cases;
 
-trait BaseClientTestTrait {
+abstract class BaseClientTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @return String
 	 */
@@ -18,20 +18,18 @@ trait BaseClientTestTrait {
 	 */
 	protected function _testResultGetRequestOptions($mock_result, $expect_method, $expect_path)
 	{
-		list($method, $path, $request_options) = $mock_result->getRequestArgs();
-		$construct_options = $mock_result->getConstructArgs()[0];
+		list($method, $path, $query, $headers, $body, $guzzle_options) = $mock_result->getRequestArgs();
+		$construct_options = $mock_result->getConstructArgs();
+		$construct_options = $construct_options[0];
 
 		$this->assertEquals($expect_method, $method);
 		$this->assertEquals($expect_path, $path);
 
-		$this->assertArrayHasKey('headers', $request_options);
-		$this->assertArrayHasKey('Date', $request_options['headers']);
+		$this->assertArrayHasKey('Date', $headers);
 
 		// Analyze Construction
-		$this->assertEquals(array(
-			'base_uri' => $this->_getExpectedBaseUri()
-		), $construct_options);
+		$this->assertEquals($this->_getExpectedBaseUri(), $construct_options);
 
-		return $request_options;
+		return compact('method', 'path', 'query', 'headers', 'body', 'guzzle_options');
 	}
 }
