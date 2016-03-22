@@ -17,48 +17,54 @@ $_POST['result']['probes']['name'][0]
 # Example Verification Payload (presented in JSON)
 ```javascript
 {
-    // unix timestamp when this verification was last updated
-    "updated": 0,
-    // unix timestamp when this verification was created
-    "updated": 0,
-    // Array of strings indicating reasons for the verifications
+    "partner_script_id": "{{YOUR_PARTNER_SCRIPT_ID}}",
+    // Unix timestamps when the verification was created/updated
+    "updated": 1451972986,
+    "created": 1451972986,
+    // A facebook profile image
+    "facebook_photo_url": "https://graph.facebook.com/{{FB_ID}}/picture?type=large",
+    "verified_by_facebook": true,
+    // Flags are an array of strings indicating the reasoning behind the verification results.
     "flags": [
-        "EM03",
-        "NM02"
+        "EM02",
+        "NM01"
     ],
-    // The verification results for each category. 1 == Verified
-    "verifications" : {
-        "name": 1,
-        "university": 0,
-        "employer": 1,
-        "facebook_verified": 1,
-        "birthday": 1,
-        "top_employer": 0
+    "verifications": {
+        // Verification results for each category.
+        // True = Verified
+        // False = Not Verified
+        // Null = No probe to compare against
+        "name": true,
+        "university": false,
+        "employer": null,
+        "facebook_verified": true,
+        "birthday": true,
+        "top_employer": null
     },
-    // The client ID you provided to retrieve this result.
-    "client_id": "string",
-    // Probes are the values provided by you initially to us to verify against.
+    // The Client/Application ID you provided to return this result.
+    "client_id": "{{YOUR_CLIENT/APPLICATION_ID}}",
+    // Probes are the values you initially provded to us to verify for the user.
     "probes": {
         "name": [
-            "first",
-            "middle",
-            "last"
+            "{{FIRST_NAME}}",
+            "{{MIDDLE_NAME}}",
+            "{{LAST_NAME}}"
         ],
         "university": {
-            "university": "university_name"
+            "university": "{{UNIVERSITY_NAME}}"
         },
         "employer": {
-            "employer": "employer_name"
+            "employer": "{{EMPLOYER_NAME}"
         },
         "facebook_verified": [
-            "verified_facebook_id"
+            "{{VERIFIED_FACEBOOK_ID}}"
         ],
         "birthday": [
-            1900, // year
-            12, // month
-            31 // day
+            1988, // year
+            5, // month
+            4 // day
         ],
-        "top_employer": "top_employer_name"
+        "top_employer": null
     }
 }
 ```
