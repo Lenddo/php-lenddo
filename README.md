@@ -30,7 +30,7 @@ The Lenddo PHP SDK is available via Composer and can be installed by running the
 Please refer to the packagist link here: https://packagist.org/packages/lenddo/sdk.
 
 ## REST Services
-The **ServiceClient** and **WhiteLabelClient** This SDK will allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular **GuzzleHttp\Guzzle** package. Calling the methods on the `ServiceClient` or `WhiteLabelClient` classes will return a `Psr\Http\Message\ResponseInterface` object from the Guzzle Library.
+The **ServiceClient** and **WhiteLabelClient** This SDK will allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular **GuzzleHttp\Guzzle** package. A common interface will be returned regardless of the Guzzle version used and the original Guzzle request/response objects are exposed for your convenience.
 
 ### Service Client
 The **ServiceClient** will allow you to retrieve the scoring, verification, and decision results from Lenddo.
