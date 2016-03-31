@@ -11,6 +11,7 @@
 - [REST Services](#rest-services)
   - [Service Client](#service-client)
   - [Whitelabel Client](#whitelabel-client)
+  - [Handling Exceptions](#handling-exceptions)
 - [Webhook Management](#webhook-management)
 - [ChangeLog](#changelog)
 
@@ -39,6 +40,11 @@ The **ServiceClient** will allow you to retrieve the scoring, verification, and 
 ### Whitelabel Client
 The **WhiteLabelClient** will allow you to utilize Lenddo services without any Lenddo branding. This method of implementation is the most complex but allows you to fully customize your users' experience.
 - [Read the documentation here](docs/whitelabel_client.md)
+
+### Handling Exceptions
+Both the _whitelabel client_ and the _service client_ have a common interface for making requests. Because of this you
+can utilize a single method for error handling for both classes.
+- [Read the documentation here](docs/error_management.md)
 
 ## Webhook Management
 While the REST Services allow you to retrieve the results of a scoring or verification job they require you to continue contacting Lenddo until results are available. For many situations this is less than ideal. Due to this Lenddo offers a webhook service. The webhook service is a feature which allows you to receive a POST request at a designated URL the moment a result is available.

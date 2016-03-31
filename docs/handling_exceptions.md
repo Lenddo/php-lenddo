@@ -5,6 +5,15 @@ broken out into different classes which can be found in [src/clients/exceptions]
 
 The purpose of this page is to document each exception class as well as how to handle them.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Request Exception Classes](#request-exception-classes)
+- [Handling Request Exceptions](#handling-request-exceptions)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Request Exception Classes
 **Lenddo\clients\exceptions\BadRequestException**
 
