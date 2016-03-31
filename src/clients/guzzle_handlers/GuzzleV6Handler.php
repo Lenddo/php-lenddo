@@ -3,6 +3,8 @@
 namespace Lenddo\clients\guzzle_handlers;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\RequestException;
+use Lenddo\clients\exceptions\ExceptionRouter;
 // V6 is compatible with how we treat responses in v4
 use Lenddo\clients\guzzle_handlers\response\V4Response as Response;
 
@@ -39,6 +41,12 @@ class GuzzleV6Handler implements HandlerInterface {
 		)));
 
 
-		return new Response($request, $request->wait());
+		try {
+			return new Response($request, $request->wait());
+		} catch (RequestException $e) {
+			// Catch Request Exceptions and wrap them in friendlier exceptions
+			$response = new Response($request, $e->getResponse());
+			throw ExceptionRouter::routeException($e, $response);
+		}
 	}
 }

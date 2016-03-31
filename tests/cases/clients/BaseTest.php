@@ -42,6 +42,6 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 		$timestamp = $client->mockExposeGetTimestamp();
 
 		// Should look something like: Sat Nov 21 3:52:49 CET 2015
-		$this->assertRegExp('/\w{3} \w{3} \d{1,2} \d{1,2}(:\d{2}){2} \w{3} \d{4}/', $timestamp);
+		$this->assertRegExp('/\w{3} \w{3} \d{1,2} \d{1,2}(:\d{2}){2} \w{3,4} \d{4}/', $timestamp);
 	}
 }
