@@ -51,11 +51,18 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 - [Read the documentation here](docs/webhooks.md)
 
 ## ChangeLog
+**v2.1** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.1
+
+> **Summary**
+> * Enhanced exception management
+>   * New exception classes for reporting back error cases on REST API calls.
+> * Documentation for exception management
+
 **v2.0** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.0
 
-**Summary**
-* Breaking changes from v1.x
-* Support for PHP 5.3, 5.4
-* Support for Guzzle 3, 4, 5
-* Updated Documentation
-* Certificate Authority Root Inclusion
+> **Summary**
+> * Breaking changes from v1.x
+> * Support for PHP 5.3, 5.4
+> * Support for Guzzle 3, 4, 5
+> * Updated Documentation
+> * Certificate Authority Root Inclusion
