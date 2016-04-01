@@ -21,8 +21,8 @@ The purpose of this page is to document each exception class as well as how to h
 
 **Lenddo\clients\exceptions\ForbiddenException**
 
-> Your credentials are not allowed to access the API. Please refer to the dashboard found @ https://partners.lenddo.com.
-If you feel this is in error please contact your Lenddo Account Manager.
+> Either your credentials are not allowed to access the API or your credentials are incorrect. Please refer to the
+dashboard found @ https://partners.lenddo.com. If you feel this is in error please contact your Lenddo Account Manager.
 
 **Lenddo\clients\exceptions\InternalErrorException**
 
@@ -63,7 +63,7 @@ try {
 			echo 'BAD REQUEST, Reason: ' . $error_message;
 			break;
 		case $e instanceof \Lenddo\clients\exceptions\ForbiddenException:
-			echo 'FORBIDDEN - the credentials you have provided are not correct.';
+			echo 'FORBIDDEN - the credentials you have provided are not correct or cannot access this service.';
 			break;
 		case $e instanceof \Lenddo\clients\exceptions\InternalErrorException:
 		case $e instanceof \Lenddo\clients\exceptions\UnknownException:
