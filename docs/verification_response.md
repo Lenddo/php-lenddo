@@ -39,7 +39,8 @@ $_POST['result']['probes']['name'][0]
         "employer": null,
         "facebook_verified": true,
         "birthday": true,
-        "top_employer": null
+        "top_employer": null,
+        "phone": true
     },
     // The Client/Application ID you provided to return this result.
     "client_id": "{{YOUR_CLIENT/APPLICATION_ID}}",
@@ -64,7 +65,9 @@ $_POST['result']['probes']['name'][0]
             5, // month
             4 // day
         ],
-        "top_employer": null
+        "top_employer": null,
+        // The phone number is the number that the user asked us to verify.
+        "phone": "{{USER_ENTER_PHONE_NUMBER}}"
     }
 }
 ```
