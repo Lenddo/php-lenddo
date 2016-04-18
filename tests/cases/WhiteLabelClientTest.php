@@ -3,6 +3,7 @@
 namespace Lenddo\tests\cases;
 
 use Lenddo\tests\mocks\WhiteLabelClientMock;
+use Lenddo\Verification;
 
 class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 {
@@ -96,6 +97,32 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 					'Connection' => 'close',
 				),
 			'body' => '{"client_id":"123","profile_ids":["123FB","ABC@gmail.comEM"],"partner_script_id":"012345678901234567891234","verification_data":[]}',
+			'query' => array(),
+			'method' => 'POST',
+			'path' => '/CommitPartnerJob',
+			'guzzle_options' => Array ()
+		), $request_options);
+	}
+
+	public function testCommitPartnerJobWithVerification()
+	{
+		$client = $this->_buildServiceClient();
+		$verification = new Verification();
+		$verification->setFirstName('First')
+			->setLastName('Last');
+
+		$result = $client->commitPartnerJob($this->_partner_script_id, $this->_client_id, $this->_profile_ids, $verification);
+		$request_options = $this->_testResultGetRequestOptions($result, 'POST', '/CommitPartnerJob');
+
+		$this->assertEquals(array (
+			'headers' =>
+				array (
+					'Authorization' => 'LENDDO foo:IHnuZx4WsUfcL0DRNfCh56GMCRs=',
+					'Content-Type' => 'application/json',
+					'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
+					'Connection' => 'close',
+				),
+			'body' => '{"client_id":"123","profile_ids":["123FB","ABC@gmail.comEM"],"partner_script_id":"012345678901234567891234","verification_data":{"name":{"first":"First","last":"Last"}}}',
 			'query' => array(),
 			'method' => 'POST',
 			'path' => '/CommitPartnerJob',

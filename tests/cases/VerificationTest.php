@@ -53,4 +53,11 @@ class VerificationTest extends \PHPUnit_Framework_TestCase {
 			)
 		));
 	}
+
+	public function testDateException() {
+		$this->setExpectedException('Lenddo\exceptions\ValueException');
+
+		$verification = new Verification();
+		$verification->setDateOfBirth('foo');
+	}
 }
