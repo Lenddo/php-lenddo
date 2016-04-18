@@ -51,6 +51,11 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 - [Read the documentation here](docs/webhooks.md)
 
 ## ChangeLog
+**v2.2** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.2
+
+> **Summary**
+> * Adding new Verification management class for whitelabel verification probes.
+
 **v2.1** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.1
 
 > **Summary**
