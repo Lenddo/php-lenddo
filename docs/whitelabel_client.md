@@ -37,7 +37,7 @@ $api_app_secret = '';
 require 'vendor/autoload.php';
 
 // Instantiate the Lenddo Service Client
-$client = new Lenddo\WhiteLabelClient( $id, $secret );
+$client = new Lenddo\WhiteLabelClient( $api_app_id , $api_app_secret );
 ```
 
 ## PartnerToken
@@ -108,8 +108,9 @@ CommitPartnerJob has the following arguments:
 
 // $profile_ids will be an array of the profile ID's that we've received as a response from PartnerToken
 $profile_ids = array( '123FB' );
+$application_id = '20160418-130';
 
-$response = $client->commitPartnerJob($partner_script_id, $APPLICATION_ID, $profile_ids);
+$response = $client->commitPartnerJob($partner_script_id, $application_id, $profile_ids);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
@@ -140,6 +141,6 @@ try {
     $http_status = $e->getResponse()->getStatusCode(); // 400
     
     // {"message": "Missing required token field refresh_token.", "name": "INVALID_TOKEN"}
-    $error_body = json_decode($e->getResponse()->getBody()->getContents());
+    $error_body = $e->getBody();
 }
 ```
