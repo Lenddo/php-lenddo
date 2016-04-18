@@ -90,12 +90,12 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 		$this->assertEquals(array (
 			'headers' =>
 				array (
-					'Authorization' => 'LENDDO foo:X+64Gk+GVTHHTlweHefD99uwxBA=',
+					'Authorization' => 'LENDDO foo:J/XZ2KELoFUNSkMZmO5gcaOyFy0=',
 					'Content-Type' => 'application/json',
 					'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
 					'Connection' => 'close',
 				),
-			'body' => '{"client_id":"123","profile_ids":["123FB","ABC@gmail.comEM"],"partner_script_id":"012345678901234567891234"}',
+			'body' => '{"client_id":"123","profile_ids":["123FB","ABC@gmail.comEM"],"partner_script_id":"012345678901234567891234","verification_data":[]}',
 			'query' => array(),
 			'method' => 'POST',
 			'path' => '/CommitPartnerJob',
