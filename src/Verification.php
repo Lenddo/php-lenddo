@@ -4,7 +4,7 @@ namespace Lenddo;
 
 use Lenddo\exceptions\ValueException;
 
-class VerificationStruct {
+class Verification {
 	protected $_first_name;
 	protected $_middle_name;
 	protected $_last_name;
@@ -15,7 +15,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $first_name
-	 * @return VerificationStruct
+	 * @return Verification
 	 */
 	public function setFirstName($first_name)
 	{
@@ -25,7 +25,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $middle_name
-	 * @return VerificationStruct
+	 * @return Verification
 	 */
 	public function setMiddleName($middle_name)
 	{
@@ -35,7 +35,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $last_name
-	 * @return VerificationStruct
+	 * @return Verification
 	 */
 	public function setLastName($last_name)
 	{
@@ -45,7 +45,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $date_of_birth
-	 * @return VerificationStruct
+	 * @return Verification
 	 * @throws ValueException
 	 */
 	public function setDateOfBirth($date_of_birth)
@@ -59,7 +59,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $employer
-	 * @return VerificationStruct
+	 * @return Verification
 	 */
 	public function setEmployer($employer)
 	{
@@ -69,7 +69,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $mobile_phone
-	 * @return VerificationStruct
+	 * @return Verification
 	 */
 	public function setMobilePhone($mobile_phone)
 	{
@@ -79,7 +79,7 @@ class VerificationStruct {
 
 	/**
 	 * @param mixed $university
-	 * @return VerificationStruct
+	 * @return Verification
 	 */
 	public function setUniversity($university)
 	{

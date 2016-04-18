@@ -102,6 +102,9 @@ CommitPartnerJob has the following arguments:
     
 3. **profile ids** - This is an array of ID's composed from the results of the
     [`WhiteLabelClient::PartnerToken`](#partnertoken) service call.
+    
+4. **verification** - This is an optional argument which will allow you to send probe data with the verification object.
+    * [Read verification documentation here](verification.md)
 
 ```php
 <?php
@@ -109,8 +112,11 @@ CommitPartnerJob has the following arguments:
 // $profile_ids will be an array of the profile ID's that we've received as a response from PartnerToken
 $profile_ids = array( '123FB' );
 $application_id = '20160418-130';
+$verification = new Lenddo\Verification();
 
-$response = $client->commitPartnerJob($partner_script_id, $application_id, $profile_ids);
+$verification->setFirstName('First Name')->setMiddleName('MN')->setLastName('Last Name');
+
+$response = $client->commitPartnerJob($partner_script_id, $application_id, $profile_ids, $verification);
 
 // Get the Status Code for the response
 $status_code = $response->getStatusCode(); // 200
