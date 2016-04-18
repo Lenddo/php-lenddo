@@ -59,9 +59,11 @@ class WhiteLabelClient extends Base
 	 *   scoring results.
 	 * @param $profile_ids - This is an array of ID's which were obtained from the PartnerToken service call from the
 	 *   WhiteLabelClient class.
+	 * @param Verification $verification - Optional - the verification struct object containing the probes you
+	 * 	wish to verify against.
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function commitPartnerJob($partner_script_id, $client_id, $profile_ids) {
+	public function commitPartnerJob($partner_script_id, $client_id, $profile_ids, Verification $verification = null) {
 		if(count($profile_ids) === 0) {
 			throw new \InvalidArgumentException('$profile_ids must contain at least one entry.');
 		}
@@ -69,7 +71,8 @@ class WhiteLabelClient extends Base
 		return $this->_postJSON($this->_hosts['network_service'], 'CommitPartnerJob', array(
 			'client_id' => $client_id,
 			'profile_ids' => $profile_ids,
-			'partner_script_id' => $partner_script_id
+			'partner_script_id' => $partner_script_id,
+			'verification_data' => $verification ? $verification->export() : array()
 		));
 	}
 }
