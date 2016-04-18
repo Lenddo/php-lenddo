@@ -8,7 +8,7 @@ The Lenddo SDK exposes a verification object which is designed to make integrati
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**
 
 - [Introduction to the Verification Class](#introduction-to-the-verification-class)
 - [Available "set" methods](#available-set-methods)
@@ -51,7 +51,8 @@ Define the users' last name
 
 ### setDateOfBirth( $date_of_birth )
 Define when this user was born.
-**important** This must be defined as YYYY-MM-DD where digits are in place of the respective Y,M, and D positions. 
+
+**[IMPORTANT]** This must be defined as YYYY-MM-DD where digits are in place of the respective Y,M, and D positions. 
 For example, April 20th 2016 would be written as 2016-04-20. Failure to do this will result in an exception being thrown.
 
 ### setEmployer( $employer )
