@@ -111,3 +111,10 @@ if( $authentication_client->authenticateRequest() ) {
 	$authentication_client->webhookAccepted();
 }
 ```
+
+## Exceptions
+### *ReferenceException* - Could not find Authorization Header!
+This exception will be thrown when the request that is responsible for triggering the `authenticateRequest()` method 
+does not have an *Authorization* header. Without this header there is no way to authenticate the request.
+
+The most likely scenario for this to occur is when trying to open the implementing endpoint in your own browser.
