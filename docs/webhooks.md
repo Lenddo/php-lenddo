@@ -7,10 +7,9 @@ Webhooks allow partners to receive notification that results are complete along 
 
 - [Webhook Setup](#webhook-setup)
 - [Requirements](#requirements)
-  - [Optional Configuration](#optional-configuration)
 - [Webhook Call Breakdown](#webhook-call-breakdown)
-  - [Payload](#payload)
 - [Usage](#usage)
+- [Exceptions](#exceptions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
