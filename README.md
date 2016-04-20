@@ -51,6 +51,11 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 - [Read the documentation here](docs/webhooks.md)
 
 ## ChangeLog
+**v2.3** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.3
+> **Summary**
+> * Adding new utility to test webhooks locally.
+>     [Read the documentation here](docs/testing_webhooks.md)
+
 **v2.2** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.2
 
 > **Summary**
