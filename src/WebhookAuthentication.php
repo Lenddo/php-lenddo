@@ -2,8 +2,8 @@
 
 namespace Lenddo;
 
-use Dflydev\Hawk\Server\ServerBuilder as HawkServerBuilder;
 use Dflydev\Hawk\Credentials\Credentials as HawkCredentials;
+use Dflydev\Hawk\Server\ServerBuilder as HawkServerBuilder;
 use Lenddo\exceptions\AuthorizationException;
 use Lenddo\exceptions\ReferenceException;
 
@@ -22,14 +22,15 @@ class WebhookAuthentication {
 		// Configure this class.
 		$this->_config($options, TRUE);
 		// Get the credentials provider, callable function
-		$credentialsProvider = $this->_credentialsProvider($webhook_key, $partner_script_id);
+		$credentialsProvider = static::_credentialsProvider($webhook_key, $partner_script_id);
 		// Build the Hawk Server
 		$this->_hawk_server = HawkServerBuilder::create($credentialsProvider)->build();
 	}
 
-	protected function _credentialsProvider( $webhook_key, $partner_id ) {
-		return function() use ( $webhook_key, $partner_id ) {
-			return new HawkCredentials( $webhook_key, static::HASH_METHOD, $partner_id );
+	protected static function _credentialsProvider( $webhook_key, $partner_id ) {
+		$hash_method = static::HASH_METHOD;
+		return function() use ( $webhook_key, $partner_id, $hash_method ) {
+			return new HawkCredentials( $webhook_key, $hash_method, $partner_id );
 		};
 	}
 

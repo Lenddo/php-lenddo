@@ -6,7 +6,7 @@ class HandlerResolver {
 	/**
 	 * This method will resolve the handler we need to use for the installed version of Guzzle.
 	 *
-	 * @return string
+	 * @return string|HandlerInterface
 	 * @throws \Exception
 	 */
 	static public function resolve() {
