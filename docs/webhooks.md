@@ -52,7 +52,7 @@ The payload of the POST request is `application/x-www-form-urlencoded`. This mea
 The structure of the payload is as follows:
 ```php
 $_POST = array(
-    'APPLICATION_ID' => 'your_APPLICATION_ID_123', // this is the client id you sent to us when you passed the user to Lenddo
+    'client_id' => 'your_APPLICATION_ID_123', // this is the client id you sent to us when you passed the user to Lenddo
     'event' => 'scoring_complete',
     'result' => array(
         'score' =>  687,
@@ -88,10 +88,11 @@ $webhook_key = '<webhook hash key from 3.4>';
 // None of the following fields must be defined. Please refer to the `Optional Configuration` Above
 // If your environment does not require any of the custom option values, please omit this field.
 $options = array(
-    'Host' => 'public.dns.com'
-    'Port' => 6050,
+    'Host' => 'public.dns.com',
+    'Port' => 443, // 443 for most https setups and 80 for most http setups.
+    // include query strings, must be prefixed with a slash.
     'RequestPath' => '/the/path/we/call?query=string&as=well'
-)
+);
 
 // Build the Authentication Client.
 $authentication_client = new WebhookAuthentication($webhook_key, $partner_script_id, $options);
