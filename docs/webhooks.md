@@ -9,6 +9,7 @@ Webhooks allow partners to receive notification that results are complete along 
 - [Requirements](#requirements)
 - [Webhook Call Breakdown](#webhook-call-breakdown)
 - [Usage](#usage)
+- [Testing Webhooks](#testing-webhooks)
 - [Exceptions](#exceptions)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -111,6 +112,11 @@ if( $authentication_client->authenticateRequest() ) {
 	$authentication_client->webhookAccepted();
 }
 ```
+
+
+## Testing Webhooks
+Now that you've finalized your implementation you'll want to test your webhook. A simple testing utility exists to help you with this.
+* [Read the documentation here](testing_webhooks.md)
 
 ## Exceptions
 ### *ReferenceException* - Could not find Authorization Header!

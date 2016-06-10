@@ -67,6 +67,8 @@ if ($response_body === true) {
 echo "Webhook failed with the following body:\r\n" . $response_body;
 ```
 
+In the above code you can see that `$response_body` either returns _true_ or a the _string_ body of the response. The intention behind this is to quickly determine the success of the request. Success is determined by the presence of the `webhook accepted` response that calling the `Lenddo\WebhookAuthentication::webhookAccepted()` method will echo out. When the request is _not_ successful, Lenddo's systems will attempt to retry again, to an upper limit.
+
 ## Understanding Errors
 When you call the endpoint which includes the `authenticateRequest(...)` method of the `Lenddo\WebhookAuthentication` class you may encounter an error. This is usually due to a misconfiguration of either the test or the implementation.
 
