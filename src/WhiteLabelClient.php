@@ -53,11 +53,11 @@ class WhiteLabelClient extends Base
 	 *
 	 * To perform this step you must have an array of at least one profile id obtained from the PartnerToken call.
 	 *
-	 * @param $partner_script_id - The partner script ID is defined in your partner's dashboard. This is necessary for
+	 * @param string $partner_script_id - The partner script ID is defined in your partner's dashboard. This is necessary for
 	 *   defining how data is displayed in the dashboard as well as returning webhooks and /or e-mail notifications.
-	 * @param $client_id - This is a single use ID which acts as a transaction ID. It is used for later referencing the
+	 * @param string $client_id - This is a single use ID which acts as a transaction ID. It is used for later referencing the
 	 *   scoring results.
-	 * @param $profile_ids - This is an array of ID's which were obtained from the PartnerToken service call from the
+	 * @param array $profile_ids - This is an array of ID's which were obtained from the PartnerToken service call from the
 	 *   WhiteLabelClient class.
 	 * @param Verification $verification - Optional - the verification struct object containing the probes you
 	 * 	wish to verify against.
@@ -66,6 +66,9 @@ class WhiteLabelClient extends Base
 	public function commitPartnerJob($partner_script_id, $client_id, $profile_ids, Verification $verification = null) {
 		if(count($profile_ids) === 0) {
 			throw new \InvalidArgumentException('$profile_ids must contain at least one entry.');
+		}
+		if(!is_array($profile_ids)) {
+			throw new \InvalidArgumentException('$profile_ids must be an array.');
 		}
 
 		return $this->_postJSON($this->_hosts['network_service'], 'CommitPartnerJob', array(

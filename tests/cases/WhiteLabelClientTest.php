@@ -81,6 +81,16 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 		$client->partnerToken($this->_client_id, $this->_provider, $this->_oauth_key, $this->_oauth_secret, $this->_token_data);
 	}
 
+	public function testCommitPartnerJobInvalidProfileIds() {
+		$this->setExpectedException(
+			'InvalidArgumentException',
+			'$profile_ids must be an array.'
+		);
+		$client = $this->_buildServiceClient();
+
+		$client->commitPartnerJob('foo', 'bar', 'baz');
+	}
+
 	public function testCommitPartnerJob()
 	{
 		$client = $this->_buildServiceClient();
@@ -88,9 +98,9 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 		$result = $client->commitPartnerJob($this->_partner_script_id, $this->_client_id, $this->_profile_ids);
 		$request_options = $this->_testResultGetRequestOptions($result, 'POST', '/CommitPartnerJob');
 
-		$this->assertEquals(array (
+		$this->assertEquals(array(
 			'headers' =>
-				array (
+				array(
 					'Authorization' => 'LENDDO foo:J/XZ2KELoFUNSkMZmO5gcaOyFy0=',
 					'Content-Type' => 'application/json',
 					'Date' => 'Sun Oct 4 21:45:10 CEST 2015',
@@ -100,7 +110,7 @@ class WhiteLabelClientTest extends \Lenddo\tests\cases\BaseClientTest
 			'query' => array(),
 			'method' => 'POST',
 			'path' => '/CommitPartnerJob',
-			'guzzle_options' => Array ()
+			'guzzle_options' => Array()
 		), $request_options);
 	}
 
