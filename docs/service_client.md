@@ -9,6 +9,7 @@ The `ServiceClient` allows partners to retrieve scoring and verification results
 - [Get a Score](#get-a-score)
 - [Get a Verification](#get-a-verification)
 - [Get an Application Decision](#get-an-application-decision)
+- [Send Extra Application Data](#send-extra-application-data)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -101,5 +102,46 @@ switch($application_decision_results->decision) {
     default:
         // Notify necessary staff here
         throw new Error('Unknown Application Decision Result!');
+}
+```
+
+## Send Extra Application Data
+If you're sending extra information with your application you can use this method to submit it. Extra Application Data 
+may be used to enhance the model performance based on data you may already have about a user.
+
+### Notes
+1. You cannot make this request more than once per application/partner script combination. Doing so will result in a 
+    _BAD_REQUEST_ response from the service. Please read the [documentation here](handling_exceptions.md) on how to 
+    handle errors.
+2. If you do not know what this functionality is but would like to submit data for Lenddo to work with please contact 
+    your Lenddo representative.
+3. Format of the data being sent in the _$data_ field should be pre-negotiated with Lenddo and shouldn't deviate from 
+    agreement to maximize the use of this call.
+
+### Definition
+_extraApplicationData($application_id, $partner_script_id, $data)_
+
+* _$application_id_ & _$partner_script_id_ are the respective ID's you sent the user to the Lenddo service with.
+* _$data_ is an **Array** and must contain at least one element
+
+### Return
+The return result is an instance of _Lenddo\clients\guzzle_handlers\response\ResponseInterface_.
+
+#### Successful Response
+```json
+{"success": true}
+```
+```php
+$success = $response->getBody()->success;
+```
+
+### Usage
+```php
+$result = $client->extraApplicationData('APPLICATION_ID', 'PARTNER_SCRIPT_ID', array(
+    'balance' => 1234.56
+));
+
+if ($result->getBody()->success) {
+    // success!
 }
 ```
