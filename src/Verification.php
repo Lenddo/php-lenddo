@@ -12,6 +12,7 @@ class Verification {
 	protected $_employer;
 	protected $_mobile_phone;
 	protected $_university;
+	protected $_email;
 
 	/**
 	 * @param mixed $first_name
@@ -88,6 +89,15 @@ class Verification {
 	}
 
 	/**
+	 * @param string $email
+	 */
+	public function setEmail($email)
+	{
+		$this->_email = $email;
+		return $this;
+	}
+
+	/**
 	 * Export the verification object as it should be structured. Filter out undefined/null values.
 	 *
 	 * @return array
@@ -104,7 +114,8 @@ class Verification {
 			'phone' => array_filter(array(
 				'mobile' => $this->_mobile_phone
 			)),
-			'university' => $this->_university
+			'university' => $this->_university,
+			'email' => $this->_email
 		));
 	}
 }

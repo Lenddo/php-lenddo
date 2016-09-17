@@ -17,7 +17,8 @@ class VerificationTest extends \PHPUnit_Framework_TestCase {
 			'DateOfBirth' => '1988-05-04',
 			'Employer' => 'Lenddo',
 			'MobilePhone' => 'mp',
-			'University' => 'u'
+			'University' => 'u',
+			'Email' => 'support@lenddo.com'
 		);
 
 		$verification = new Verification();
@@ -37,7 +38,8 @@ class VerificationTest extends \PHPUnit_Framework_TestCase {
 			'phone' => array(
 				'mobile' => 'mp'
 			),
-			'university' => 'u'
+			'university' => 'u',
+			'email' => 'support@lenddo.com'
 		));
 	}
 
