@@ -61,5 +61,8 @@ Define the current employer of the user.
 ### setMobilePhone( $mobile_phone )
 Define the mobile phone number of the user.
 
-### setUniversity( $university)
+### setUniversity( $university )
 Define the university this user attended.
+
+### setEmail( $email )
+Define the e-mail address that you want to validate.
