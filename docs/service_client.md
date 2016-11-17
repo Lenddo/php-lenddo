@@ -136,9 +136,25 @@ $success = $response->getBody()->success;
 ```
 
 ### Usage
+This is a sample of how to use this call. Please first consult your Lenddo representative to negotiate the format of the data to be transmitted.
+
 ```php
 $result = $client->extraApplicationData('APPLICATION_ID', 'PARTNER_SCRIPT_ID', array(
-    'balance' => 1234.56
+    'application' => array(
+        'name' => array(
+            'first' => 'John',
+            'middle' => 'James',
+            'last' => 'Doe'
+        ),
+        'date_of_birth' => '1988-05-04',
+        'number_of_dependents' => 3,
+        'mothers_maiden_name' => 'Byrd',
+        'agreed_to_terms' => true
+    ),
+    'account' => array(
+        'balance' => 1234.56,
+        'status' => 'current'
+    )
 ));
 
 if ($result->getBody()->success) {
