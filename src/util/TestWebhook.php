@@ -87,7 +87,6 @@ class TestWebhook {
 					'name' => true,
 					'university' => false,
 					'employer' => true,
-					'facebook_verified' => true,
 					'birthday' => true,
 					'top_employer' => true,
 					'phone' => true
@@ -102,7 +101,6 @@ class TestWebhook {
 					'employer' => array(
 						'employer' => 'emp'
 					),
-					'facebook_verified' => array( 'fbid' ),
 					'birthday' => array(
 						1988, 5, 4
 					),
