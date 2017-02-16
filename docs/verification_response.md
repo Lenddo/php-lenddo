@@ -37,7 +37,6 @@ $_POST['result']['probes']['name'][0]
         "name": true,
         "university": false,
         "employer": null,
-        "facebook_verified": true,
         "birthday": true,
         "top_employer": null,
         "phone": true
@@ -57,9 +56,6 @@ $_POST['result']['probes']['name'][0]
         "employer": {
             "employer": "{{EMPLOYER_NAME}"
         },
-        "facebook_verified": [
-            "{{VERIFIED_FACEBOOK_ID}}"
-        ],
         "birthday": [
             1988, // year
             5, // month
