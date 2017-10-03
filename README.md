@@ -9,6 +9,7 @@
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [REST Services](#rest-services)
+  - [Authorize API Client](#authorize-api-client)
   - [Service Client](#service-client)
   - [Whitelabel Client](#whitelabel-client)
   - [Handling Exceptions](#handling-exceptions)
@@ -31,7 +32,11 @@ The Lenddo PHP SDK is available via Composer and can be installed by running the
 Please refer to the packagist link here: https://packagist.org/packages/lenddo/sdk.
 
 ## REST Services
-The **ServiceClient** and **WhiteLabelClient** This SDK will allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular **GuzzleHttp\Guzzle** package. A common interface will be returned regardless of the Guzzle version used and the original Guzzle request/response objects are exposed for your convenience.
+The **AuthorizeApiClient**, **ServiceClient** and **WhiteLabelClient** This SDK will allow you to contact Lenddo's REST based services. It acts as a wrapper around the  popular **GuzzleHttp\Guzzle** package. A common interface will be returned regardless of the Guzzle version used and the original Guzzle request/response objects are exposed for your convenience.
+
+### Authorize API Client
+The **AuthorizeApiClient** will allow you to impact product output by asynchronously providing data critical to the scoring or verification process.
+- [Read the documentation here](docs/authorize_api_client.md)
 
 ### Service Client
 The **ServiceClient** will allow you to retrieve the scoring, verification, and decision results from Lenddo.
