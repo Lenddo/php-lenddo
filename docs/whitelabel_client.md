@@ -124,7 +124,7 @@ $status_code = $response->getStatusCode(); // 200
 // Retrieve the body of the response
 $commit_job_results = $response->getBody();
 
-// Get the profile ID
+// Verify the request was successful
 $success = $status_code === 200 && $commit_job_results->success = true;
 ```
 

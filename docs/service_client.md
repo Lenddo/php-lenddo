@@ -7,6 +7,7 @@ The `ServiceClient` allows partners to retrieve scoring and verification results
 
 - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
 - [Get a Score](#get-a-score)
+- [Get results for a Multiple Score model](#get-results-for-a-multiple-score-model)
 - [Get a Verification](#get-a-verification)
 - [Get an Application Decision](#get-an-application-decision)
 - [Send Extra Application Data](#send-extra-application-data)
@@ -30,8 +31,7 @@ $client = new Lenddo\ServiceClient( $id, $secret );
 ```
 
 ## Get a Score
-Please refer to the [scoring response documentation](scoring_response.md) to understand the returned 
-structure of the verification object.
+Please refer to the [scoring response documentation](scoring_response.md) to understand the returned result.
 
 To retrieve the score you'll need the application ID and the partner script ID that you used to create the application.
 
@@ -49,6 +49,33 @@ $score_results = $response->getBody();
 // Return the score value and reason flags.
 $score_value = $score_results->score;
 $score_flags = $score_results->flags;
+```
+
+## Get results for a Multiple Score model
+To retrieve the results for a multiple score model you'll need the application ID and the partner script ID that you 
+used to create the application. Please use this if directed by your Lenddo Representative.
+
+```php
+<?php
+
+$response = $client->applicationMultipleScores('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
+
+// Get the Status Code for the response
+$status_code = $response->getStatusCode(); // 200
+
+// Retrieve the body of the response
+$score_results = $response->getBody();
+
+// Return the score value and reason flags.
+$scores_array = $score_results->scores; // array of scores
+$flags = $score_results->flags; // all flags
+
+// first score result
+$score_1_model = $scores_array->scores[0]->model_id;
+$score_1_value = $scores_array->scores[0]->score;
+$score_1_flags = $scores_array->scores[0]->flags;
+$score_1_created = $scores_array->scores[0]->created;
+$score_1_features_values = $scores_array->scores[0]->feature_values;
 ```
 
 ## Get a Verification
