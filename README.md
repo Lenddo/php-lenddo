@@ -56,6 +56,11 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 - [Read the documentation here](docs/webhooks.md)
 
 ## ChangeLog
+**v2.6** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.6
+> **Summary**
+> * Adding Support for ApplicationMultipleScores [Documentation](docs/service_client.md#get-results-for-a-multiple-score-model)
+> * Adding support for Authorize API & PriorityData [Documentation](docs/authorize_api_client.md)
+
 **v2.5** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.5
 > **Summary**
 > * Adding support for e-mail probe in the verification class.

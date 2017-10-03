@@ -7,6 +7,7 @@ The `ServiceClient` allows partners to retrieve scoring and verification results
 
 - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
 - [Get a Score](#get-a-score)
+- [Get results for a Multiple Score model](#get-results-for-a-multiple-score-model)
 - [Get a Verification](#get-a-verification)
 - [Get an Application Decision](#get-an-application-decision)
 - [Send Extra Application Data](#send-extra-application-data)
