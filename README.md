@@ -56,6 +56,10 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 - [Read the documentation here](docs/webhooks.md)
 
 ## ChangeLog
+**v2.7** Release notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.7
+> **Summary**
+> * Adding support for ApplicationFeatures [Documentation](docs/service_client.md#getting-application-features)
+
 **v2.6** Release Notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.6
 > **Summary**
 > * Adding Support for ApplicationMultipleScores [Documentation](docs/service_client.md#get-results-for-a-multiple-score-model)

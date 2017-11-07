@@ -8,6 +8,7 @@ The `ServiceClient` allows partners to retrieve scoring and verification results
 - [Create the Lenddo REST Service Client](#create-the-lenddo-rest-service-client)
 - [Get a Score](#get-a-score)
 - [Get results for a Multiple Score model](#get-results-for-a-multiple-score-model)
+- [Getting Application Features](#getting-application-features)
 - [Get a Verification](#get-a-verification)
 - [Get an Application Decision](#get-an-application-decision)
 - [Send Extra Application Data](#send-extra-application-data)
@@ -76,6 +77,36 @@ $score_1_value = $scores_array->scores[0]->score;
 $score_1_flags = $scores_array->scores[0]->flags;
 $score_1_created = $scores_array->scores[0]->created;
 $score_1_features_values = $scores_array->scores[0]->feature_values;
+```
+
+## Getting Application Features
+To retrieve the application features which have been observed by processing the applicants data. This feature will not work if it is not enabled for your account.
+
+```php
+<?php
+$response = $client->applicationFeatures('APPLICATION_ID', 'PARTNER_SCRIPT_ID');
+
+// Get the status code for the response
+$status_code = $response->getStatusCode();
+
+switch($status_code) {
+	case 202:
+		// data not ready
+		break;
+	case 404:
+		// application_id not found
+		break;
+	case 400:
+		// malformed request
+		break;
+	case 500:
+		// Internal server error. Please retry. If this continues to happen please report it to your Lenddo representative.
+		break;
+	default:
+		// Unknown error. Please report this.
+		break;
+}
+
 ```
 
 ## Get a Verification
