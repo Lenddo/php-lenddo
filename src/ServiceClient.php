@@ -79,6 +79,19 @@ class ServiceClient extends Base
 	}
 
 	/**
+	 * Returns Application Features if enabled for a submitted application.
+	 *
+	 * @param $application_id
+	 * @param $partner_script_id
+	 * @return clients\guzzle_handlers\response\ResponseInterface
+	 */
+	public function applicationFeatures($application_id, $partner_script_id) {
+		return $this->_get($this->_hosts['score_service'], 'ApplicationFeatures/' . $application_id, array(
+			'partner_script_id' => $partner_script_id
+		));
+	}
+
+	/**
 	 * @param $application_id - This is your unique application id.
 	 * @param $partner_script_id - This is the partner script ID that you created this application with.
 	 * @return \Lenddo\clients\guzzle_handlers\response\ResponseInterface
