@@ -13,9 +13,17 @@ use Lenddo\clients\Base;
  * @package Lenddo
  */
 class AuthorizeApiClient extends Base
-{	protected $_hosts = array(
-		'authorize_api' => 'https://authorize-api.partner-service.link/'
-	);
+{
+	protected $_auth_api_host = "https://authorize-api.partner-service.link/";
+
+	function __construct( $api_app_id , $api_app_secret, $region) {
+		parent::__construct($api_app_id , $api_app_secret);
+
+		// Set the host based on region
+		if (!is_null($region)) {
+			$this->_auth_api_host = "https://authorize-api-" . $region . ".partner-service.link/";
+		}
+	}
 
 	/**
 	 * When enabled on a partner script a user will not be processed until priority data comes in. This data may come in
@@ -28,10 +36,10 @@ class AuthorizeApiClient extends Base
 	 */
 	public function priorityData($partner_script_id, $application_id, $extra_data, Verification $verification = null) {
 		if (!is_null($extra_data) && !is_array($extra_data)) {
-			throw new \InvalidArgumentException('$extra_data must either be null or an array');;
+			throw new \InvalidArgumentException('$extra_data must either be null or an array');
 		}
 
-		return $this->_postJSON($this->_hosts['authorize_api'], 'onboarding/prioritydata', array(
+		return $this->_postJSON($this->_auth_api_host, 'onboarding/prioritydata', array(
 			'partner_script_id' => $partner_script_id,
 			'application_id' => $application_id,
 			'data' => array_filter(array(

@@ -23,15 +23,16 @@ output. This data may be used for verification, scoring, decisioning etc.
 ```php
 <?php
 
-// Fill out the ID & Secret provided to you by your contact at Lenddo.
+// Fill out the Application ID, Secret and Region provided to you by your contact at Lenddo.
 $api_app_id = '';
 $api_app_secret = '';
+$region = '';
 
 // Require the Composer autoloader
 require 'vendor/autoload.php';
 
 // Instantiate the Lenddo Service Client
-$client = new Lenddo\AuthorizeApiClient( $api_app_id , $api_app_secret );
+$client = new Lenddo\AuthorizeApiClient( $api_app_id , $api_app_secret, $region );
 ```
 
 ## PriorityData
