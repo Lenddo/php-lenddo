@@ -56,6 +56,10 @@ While the REST Services allow you to retrieve the results of a scoring or verifi
 - [Read the documentation here](docs/webhooks.md)
 
 ## ChangeLog
+**v2.8** Release notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.8
+> **Summary**
+> * This release adds the parameters for altering the target authorize api region.
+
 **v2.7** Release notes - https://github.com/Lenddo/php-lenddo/releases/tag/v2.7
 > **Summary**
 > * Adding support for ApplicationFeatures [Documentation](docs/service_client.md#getting-application-features)
