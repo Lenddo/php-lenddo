@@ -83,7 +83,7 @@ $status_code = $response->getStatusCode(); // 200
 // Retrieve the body of the response
 $commit_job_results = $response->getBody();
 
-$success = $status_code === 200;
+$success = $status_code === 201;
 ```
 
 ### Errors
